@@ -63,25 +63,37 @@ var cmdPropToORB = {
         { "mode": 0, "pos": 0 }]
     }
 };
-/*
-//Es war über alle Sensor
+
 function configSensor(id, type, mode, option) {
     id = id - 1;
     if (0 <= id && id < 4) {
-        cmdPropToORB.propToORB.Sensor[id].type = type;
-        cmdPropToORB.propToORB.Sensor[id].mode = mode;
-        cmdPropToORB.propToORB.Sensor[id].option = option;
-        console.log("configSensor", "OK: " + "port=" + id + "," + JSON.stringify(cmdPropToORB.propToORB.Sensor[id]));
+        cmdConfigToORB.configToORB.Sensor[id].type = type;
+        cmdConfigToORB.configToORB.Sensor[id].mode = mode;
+        cmdConfigToORB.configToORB.Sensor[id].option = option;
+        console.log("configSensor", "OK: " + "port=" + id + "," + JSON.stringify(cmdConfigToORB.configToORB.Sensor[id]));
     }
     else
         console.log("configSensor", "Err:wrong id");
-}*/
-
+}
 
 function getSensorValue(id) {
     id = id - 1;
     if (0 <= id && id < 4) {
         return (propFromORB.Sensor[id].value);
+    }
+    return (0);
+}
+
+function getSensorValueGyro(id) {
+    id = id - 1;
+    if (0 <= id && id < 4) {
+        if (propFromORB.Sensor[id].value <= 32767){
+            return (propFromORB.Sensor[id].value);
+        }
+        else{
+            propFromORB.Sensor[id].value = propFromORB.Sensor[id].value-65536;
+            return (propFromORB.Sensor[id].value);
+        }
     }
     return (0);
 }
@@ -178,8 +190,6 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
         }
         
         RobotOrbBehaviour.prototype.setMoveTo = function ( speedL, speedR, deltaL, deltaR ){
-
-        
           // Zuordnung Seite und Einbaurichtung fehlen
           var distanceToTics = 1000.0/(driveConfig.wheelDiameter * Math.PI);
           
@@ -201,29 +211,6 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
           return(Math.max(timeToGoL,timeToGoR));
         }
 
-        /*
-        RobotOrbBehaviour.prototype.setMoveToDriveForr = function (speedL, speedR, deltaL, deltaR) {
-            // Zuordnung Seite und Einbaurichtung fehlen
-            //var distanceToTics = 1000.0/(driveConfig.wheelDiameter * Math.PI);//1 cm = 79,617834 Tick zu viel
-            var distanceToTics = 500.0 / (driveConfig.wheelDiameter * Math.PI);// 1cm = 29,..
-
-            deltaL *= distanceToTics;
-            deltaR *= distanceToTics;
-            speedL = Math.abs(10 * speedL);
-            speedR = Math.abs(10 * speedR);
-
-            var targetL = getMotorPos(driveConfig.motorL.port) + driveConfig.motorL.orientation * deltaL;
-            var targetR = getMotorPos(driveConfig.motorR.port) + driveConfig.motorR.orientation * deltaR;
-
-            var timeToGoL = this.calcTimeToGo(speedL, deltaL);
-            var timeToGoR = this.calcTimeToGo(speedR, deltaR);
-
-            setMotor(driveConfig.motorL.port, 3, speedL, targetL);
-            setMotor(driveConfig.motorR.port, 3, speedR, targetR);
-            this.btInterfaceFct(cmdConfigToORB);
-            this.btInterfaceFct(cmdPropToORB);
-            return (Math.max(timeToGoL, timeToGoR));
-        }*/
 
         RobotOrbBehaviour.prototype.update = function (data) {
             U.info('update type:' + data.type + ' state:' + data.state + ' sensor:' + data.sensor + ' actor:' + data.actuator);
@@ -325,73 +312,62 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
         };
 
         RobotOrbBehaviour.prototype.getSample = function (s, name, sensor, port, slot) {
-            // Hier fehlt die Zuordnung, welcher Sensortyp und welcher Port gemeint ist !
+            configSensor(port, 1, 0, 0);
             if (sensor == "ultrasonic"){
                 cmdConfigToORB.configToORB.Sensor[port - 1].type = 1;
-                if (slot == "distance"){//dis in mm, check andere mods
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 0;
-                    this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
+                if (slot == "distance"){//dis in mm,
+                    configSensor(port, 1, 0, 0);
+                    this.btInterfaceFct(cmdConfigToORB);//ist zu schnell, schon besser
                     s.push(getSensorValue(port));
                 }
                 else if (slot == "presence"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 2;
+                    configSensor(port, 1, 2, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
             }
-            if (sensor == "color"){
-                cmdConfigToORB.configToORB.Sensor[port - 1].type = 1;
+            else if (sensor == "color"){
                 if (slot == "colour"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 2;
+                    configSensor(port, 1, 2, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
                 if (slot == "light"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 0;
+                    configSensor(port, 1, 0, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
                 if (slot == "ambientlight"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 1;
+                    configSensor(port, 1, 1, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
                 if (slot == "rgb"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 4;
+                    configSensor(port, 1, 4, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
             }
-            if (sensor == "touch"){
-                cmdConfigToORB.configToORB.Sensor[port - 1].type = 3;
-                cmdConfigToORB.configToORB.Sensor[port - 1].mode = 0;
+            else if (sensor == "touch"){
+                configSensor(port, 3, 0, 0);//ALLES TESTEN
                 this.btInterfaceFct(cmdConfigToORB);
-                this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
-                s.push(getSensorValue(port));
+                //s.push(getSensorAnalog(port,0));
+                //s.push(getSensorAnalog(port,1));
+                s.push(getSensorDigital(port,0));//Zeig false, also es hat die NAchricht verändert , aber immer noch falsche
+                //s.push(getSensorDigital(port,1));//Sollte bei Zweiten Digital sein
+                //s.push(getSensorValue(port));
             }
-            if (sensor == "gyro"){
-                cmdConfigToORB.configToORB.Sensor[port - 1].type = 1;
+            else if (sensor == "gyro"){
                 if (slot == "angle"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 0;
+                    configSensor(port, 1, 0, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
-                    s.push(getSensorValue(port));
+                    s.push(getSensorValueGyro(port));
                 }
                 if (slot == "rate"){
-                    cmdConfigToORB.configToORB.Sensor[port - 1].mode = 1;
+                    configSensor(port, 1, 1, 0);
                     this.btInterfaceFct(cmdConfigToORB);
-                    this.btInterfaceFct(cmdPropToORB);//ist zuschnell,wir mussen das früher machen oder ein weit bauen
                     s.push(getSensorValue(port));
                 }
-            }
-            else {
-                throw new Error("Sensor not implemented.");
             }
             return;
         };
@@ -529,11 +505,9 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
 
             if (duration === undefined) { // SPEED mode
                 setMotor( port, 2, gradToTics*speed, 0 );
-                //setMotor(port, 2, 10 * speed, 0);
             }
             else {
                 setMotor( port, 3, gradToTics*speed, getMotorPos(port) + gradToTics*duration );
-                //setMotor(port, 3, 10 * speed, getMotorPos(port) + gradToTics * duration);
                 timeToGo = this.calcTimeToGo(speed, duration);
             }
 

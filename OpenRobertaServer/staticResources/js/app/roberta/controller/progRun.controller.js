@@ -318,7 +318,6 @@ define(['exports', 'util', 'log', 'message', 'program.controller', 'program.mode
                     GUISTATE_C.setConnectionState("busy");
                     blocklyWorkspace.robControls.switchToStop();
                     try {
-                        //runStepWedo();
                         runStepInterpreter();
                     } catch (error) {
                         interpreter.terminate();
@@ -328,12 +327,11 @@ define(['exports', 'util', 'log', 'message', 'program.controller', 'program.mode
                 }
                 break;
             case "orb":
-                interpreter = WEBVIEW_C.getOrbInterpreter(program);
+                interpreter = WEBVIEW_C.getInterpreter(program);
                 if (interpreter !== null) {
                     GUISTATE_C.setConnectionState("busy");
                     blocklyWorkspace.robControls.switchToStop();
                     try {
-                        //runStepWedo();
                         runStepInterpreter();
                     } catch (error) {
                         interpreter.terminate();
