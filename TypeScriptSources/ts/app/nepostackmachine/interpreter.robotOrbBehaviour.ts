@@ -245,22 +245,9 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
             var distanceToTics = 1000.0/(driveConfig.wheelDiameter * Math.PI);
             var maxspeed = 2.6*(driveConfig.wheelDiameter * Math.PI);
             speed = ((speed/100)*maxspeed)*distanceToTics;
-            setMotor(port, 2, driveConfig.motorL.orientation * speed, duration*1000);
+            setMotor(port, 2, driveConfig.motorL.orientation * speed, duration);
             this.btInterfaceFct(cmdPropToORB);
         }
-
-        /*
-        RobotOrbBehaviour.prototype.setMoveToMotorOnProcent = function ( port, speed, delta ){
-            var distanceToTics = 1000.0/(driveConfig.wheelDiameter * Math.PI);
-            var maxspeed = 2.6*(driveConfig.wheelDiameter * Math.PI);
-            speed = Math.abs(((speed/100)*maxspeed)*distanceToTics);
-            delta *= distanceToTics;
-            var target =  getMotorPos(port) + driveConfig.motorL.orientation*delta; 
-            var timeToGo = this.calcTimeToGo(speed,delta);
-            setMotor(port, 3, speed, target);
-            this.btInterfaceFct(cmdPropToORB);
-            return(timeToGo);
-          }*/
   
 
         RobotOrbBehaviour.prototype.setMoveTo = function ( speedL, speedR, deltaL, deltaR ){
@@ -440,10 +427,17 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
                     s.push(getSensorValueGyro(port));
                 }
             }
-            else if (sensor == "infrared"){//Block muss geandert werden, kein Mod wird geschickt
-                configSensor(port, 1, 0, 0);//Kommt immer Wert 0 zurück, Firmware ?
-                this.btInterfaceFct(cmdConfigToORB);
-                s.push(getSensorValue(port));
+            else if (sensor == "infrared"){
+                if (slot == "distance"){
+                    configSensor(port, 1, 0, 0);//Kommt immer Wert 0 zurück, Firmware ?
+                    this.btInterfaceFct(cmdConfigToORB);
+                    s.push(getSensorValue(port));
+                }
+                if (slot == "presence"){
+                    configSensor(port, 1, 2, 0);//Kommt immer Wert 0 zurück, Firmware ?
+                    this.btInterfaceFct(cmdConfigToORB);
+                    s.push(getSensorValue(port));
+                }
             }
             return;
         };
@@ -587,10 +581,15 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
                 //setMotor( port, 2, gradToTics*speed, 0 );
                 this.setSpeedMotorOnProcent(port, speed, 0);
             }
-            else {/* Es Funktioniert nicht richtig jetzt :( */
-                setMotor( port, 3, gradToTics*speed, getMotorPos(port) + gradToTics*duration );
-                //this.setMoveToMotorOnProcent(port, speed, duration);
-                timeToGo = this.calcTimeToGo(speed, duration);
+            else {/* Es Funktioniert nicht richtig jetzt :(  */
+
+               var distanceToTics = 1000.0/(driveConfig.wheelDiameter * Math.PI);
+               var maxspeed = 2.6*(driveConfig.wheelDiameter * Math.PI);
+               duration*= distanceToTics;
+               speed = Math.abs(((speed/100)*maxspeed)*distanceToTics);
+               //setMotor( port, 3,speed, getMotorPos(port) + gradToTics*duration );
+               setMotor( port, 3,speed, getMotorPos(port) + gradToTics*duration );
+               timeToGo = this.calcTimeToGo(speed, duration);
             }
             //this.btInterfaceFct(cmdConfigToORB);
             this.btInterfaceFct(cmdPropToORB);

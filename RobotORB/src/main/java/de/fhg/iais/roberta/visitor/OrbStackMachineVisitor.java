@@ -272,6 +272,13 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
 
     @Override
     public V visitInfraredSensor(InfraredSensor<V> infraredSensor) {
+        ConfigurationComponent confSensor = getConfigurationComponent(infraredSensor.getPort());
+        String mode = infraredSensor.getMode();
+        String port = confSensor.getProperty("CONNECTOR");
+        JSONObject o = mk(C.GET_SAMPLE).put(C.GET_SAMPLE, C.INFRARED).put(C.PORT, port).put(C.MODE, mode.toLowerCase()).put(C.NAME, "orb");//war ev3, hab geändert
+        return app(o);
+
+        /*
         ConfigurationComponent confInfraredSensor = getConfigurationComponent(infraredSensor.getPort());
         String brickName = confInfraredSensor.getProperty("VAR");
         String port = confInfraredSensor.getProperty("CONNECTOR");
@@ -281,6 +288,7 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
         } else {
             throw new DbcException("No robot name or no port!");
         }
+        */
     }
 
     @Override
