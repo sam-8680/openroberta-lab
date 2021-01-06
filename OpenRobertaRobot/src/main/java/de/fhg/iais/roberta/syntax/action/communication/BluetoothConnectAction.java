@@ -63,10 +63,10 @@ public class BluetoothConnectAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> bluetoothConnectAddress = helper.extractValue(values, new ExprParam(BlocklyConstants.ADDRESS, BlocklyType.STRING));
         return BluetoothConnectAction
-            .make(helper.convertPhraseToExpr(bluetoothConnectAddress), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(helper.convertPhraseToExpr(bluetoothConnectAddress), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

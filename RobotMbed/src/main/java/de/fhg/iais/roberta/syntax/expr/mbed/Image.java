@@ -96,14 +96,14 @@ public class Image<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 25);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 25);
         String[][] image = new String[5][5];
         for ( int i = 0; i < 5; i++ ) {
             for ( int j = 0; j < 5; j++ ) {
-                image[i][j] = helper.extractField(fields, "P" + j + i);
+                image[i][j] = AbstractJaxb2Ast.extractField(fields, "P" + j + i);
             }
         }
-        return Image.make(image, helper.extractBlockProperties(block), helper.extractComment(block));
+        return Image.make(image, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

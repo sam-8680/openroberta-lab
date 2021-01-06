@@ -73,9 +73,10 @@ public class RecognizeWord<V> extends Sensor<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> vocabulary = helper.extractValue(values, new ExprParam(BlocklyConstants.WORD, BlocklyType.ARRAY_STRING));
-        return RecognizeWord.make(helper.convertPhraseToExpr(vocabulary), helper.extractBlockProperties(block), helper.extractComment(block));
+        return RecognizeWord
+            .make(helper.convertPhraseToExpr(vocabulary), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

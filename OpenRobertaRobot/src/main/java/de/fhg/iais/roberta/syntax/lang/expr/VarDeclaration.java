@@ -146,15 +146,22 @@ public class VarDeclaration<V> extends Expr<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         boolean isGlobalVariable = block.getType().equals(BlocklyConstants.ROB_LOCAL_VARIABLES_DECLARE) ? false : true;
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        BlocklyType typeVar = BlocklyType.get(helper.extractField(fields, BlocklyConstants.TYPE));
-        String name = helper.extractField(fields, BlocklyConstants.VAR);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        BlocklyType typeVar = BlocklyType.get(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE));
+        String name = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.VAR);
         Phrase<V> expr = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, typeVar));
         boolean next = block.getMutation().isNext();
 
         return VarDeclaration
-            .make(typeVar, name, helper.convertPhraseToExpr(expr), next, isGlobalVariable, helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                typeVar,
+                name,
+                helper.convertPhraseToExpr(expr),
+                next,
+                isGlobalVariable,
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

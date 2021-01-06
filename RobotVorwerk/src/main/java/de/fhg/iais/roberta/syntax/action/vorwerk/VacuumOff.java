@@ -55,7 +55,7 @@ public final class VacuumOff<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return VacuumOff.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return VacuumOff.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

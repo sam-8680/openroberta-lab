@@ -62,14 +62,14 @@ public class TimerSensor<V> extends ExternalSensor<V> {
         SensorMetaDataBean sensorMetaDataBean;
         //TODO This if statement should be removed when we have new implementation of reset sensor blockly block
         if ( block.getType().equals(BlocklyConstants.ROB_SENSORS_TIMER_RESET) || block.getType().equals(BlocklyConstants.ROB_SENSORS_TIMER_RESET_CALLIOPE) ) {
-            List<Field> fields = helper.extractFields(block, (short) 1);
-            String portName = helper.extractField(fields, BlocklyConstants.SENSORPORT);
+            List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+            String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT);
             sensorMetaDataBean =
                 new SensorMetaDataBean(factory.sanitizePort(portName), factory.getMode("RESET"), factory.sanitizeSlot(BlocklyConstants.NO_SLOT), false);
-            return TimerSensor.make(sensorMetaDataBean, helper.extractBlockProperties(block), helper.extractComment(block));
+            return TimerSensor.make(sensorMetaDataBean, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
         }
         sensorMetaDataBean = extractPortAndModeAndSlot(block, helper);
-        return TimerSensor.make(sensorMetaDataBean, helper.extractBlockProperties(block), helper.extractComment(block));
+        return TimerSensor.make(sensorMetaDataBean, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

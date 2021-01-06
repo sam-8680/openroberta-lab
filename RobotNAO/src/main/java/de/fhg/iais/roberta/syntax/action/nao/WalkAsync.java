@@ -81,7 +81,7 @@ public final class WalkAsync<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
 
         Phrase<V> XSpeed = helper.extractValue(values, new ExprParam(BlocklyConstants.X + BlocklyConstants.SPEED, BlocklyType.NUMBER_INT));
         Phrase<V> YSpeed = helper.extractValue(values, new ExprParam(BlocklyConstants.Y + BlocklyConstants.SPEED, BlocklyType.NUMBER_INT));
@@ -92,8 +92,8 @@ public final class WalkAsync<V> extends Action<V> {
                 helper.convertPhraseToExpr(XSpeed),
                 helper.convertPhraseToExpr(YSpeed),
                 helper.convertPhraseToExpr(ZSpeed),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

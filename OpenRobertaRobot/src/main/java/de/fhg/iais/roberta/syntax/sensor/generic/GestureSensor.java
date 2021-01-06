@@ -41,7 +41,7 @@ public final class GestureSensor<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return GestureSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return GestureSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     Phrase<V> getSensor() {

@@ -60,14 +60,14 @@ public class EncoderSensor<V> extends ExternalSensor<V> {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
         SensorMetaDataBean sensorData;
         if ( block.getType().equals(BlocklyConstants.ROB_SENSORS_ENCODER_RESET) ) {
-            List<Field> fields = helper.extractFields(block, (short) 1);
-            String portName = helper.extractField(fields, BlocklyConstants.SENSORPORT);
+            List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+            String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT);
             sensorData =
                 new SensorMetaDataBean(factory.sanitizePort(portName), factory.getMode("RESET"), factory.sanitizeSlot(BlocklyConstants.NO_SLOT), false);
-            return EncoderSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+            return EncoderSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
         }
         sensorData = extractPortAndModeAndSlot(block, helper);
-        return EncoderSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return EncoderSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

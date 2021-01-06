@@ -43,9 +43,8 @@ public class AstToLejosJavaVisitorTest extends Ev3LejosAstTest {
             + "import lejos.remote.nxt.NXTConnection;\n\n";
 
     /**
-     * Creates the code for the brick configuration.
-     * Specify the used components in a 6 element list. First 2 are used for Actors, last 4 for Sensors.
-     * If a component is left empty the line is not generated.
+     * Creates the code for the brick configuration. Specify the used components in a 6 element list. First 2 are used for Actors, last 4 for Sensors. If a
+     * component is left empty the line is not generated.
      *
      * @param usedComponents a 6 element list with component types, empty component types are ignored.
      * @return the code of the brick configuration
@@ -698,28 +697,28 @@ public class AstToLejosJavaVisitorTest extends Ev3LejosAstTest {
     public void test20() throws Exception {
         String a =
             "" //
-            + IMPORTS
-            + MAIN_CLASS
-            + BRICK_CONFIGURATION_DECL
-            + USED_SENSORS_DECL
-            + HAL
-            + createMainMethod(Arrays.asList("", "", "", "", "", ""), "")
-            + "    public void run() throwsException {\n"
-            + "         hal.resetTimer(1);"
-            + "         hal.drawText(String.valueOf(hal.getTimerValue(1)), 0, 0);"
-            + "    }\n\n"
-            + "}\n";
+                + IMPORTS
+                + MAIN_CLASS
+                + BRICK_CONFIGURATION_DECL
+                + USED_SENSORS_DECL
+                + HAL
+                + createMainMethod(Arrays.asList("", "", "", "", "", ""), "")
+                + "    public void run() throwsException {\n"
+                + "         hal.resetTimer(1);"
+                + "         hal.drawText(String.valueOf(hal.getTimerValue(1)), 0, 0);"
+                + "    }\n\n"
+                + "}\n";
 
         UnitTestHelper
-        .checkGeneratedSourceEqualityWithProgramXmlAndSourceAsString(
-            testFactory,
-            a,
-            "/syntax/code_generator/java/java_code_generator12.xml",
-            brickConfiguration,
-            true);
+            .checkGeneratedSourceEqualityWithProgramXmlAndSourceAsString(
+                testFactory,
+                a,
+                "/syntax/code_generator/java/java_code_generator12.xml",
+                brickConfiguration,
+                true);
 
     }
-    
+
     @Test
     public void testStmtForEach() throws Exception {
         String a =

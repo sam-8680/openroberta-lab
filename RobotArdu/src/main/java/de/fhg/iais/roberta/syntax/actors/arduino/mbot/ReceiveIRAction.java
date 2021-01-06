@@ -57,7 +57,7 @@ public class ReceiveIRAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return ReceiveIRAction.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return ReceiveIRAction.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

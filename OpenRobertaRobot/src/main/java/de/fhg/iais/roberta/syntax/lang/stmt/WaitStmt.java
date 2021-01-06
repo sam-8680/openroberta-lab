@@ -82,13 +82,13 @@ public class WaitStmt<V> extends Stmt<V> {
         int mutat = block.getMutation() == null ? 0 : block.getMutation().getWait().intValue();
         List<Statement> statementss;
         if ( mutat == 0 ) {
-            values = helper.extractValues(block, (short) (mutat + 1));
-            statementss = helper.extractStatements(block, (short) (mutat + 1));
+            values = AbstractJaxb2Ast.extractValues(block, (short) (mutat + 1));
+            statementss = AbstractJaxb2Ast.extractStatements(block, (short) (mutat + 1));
         } else {
             List<Object> valAndStmt = block.getRepetitions().getValueAndStatement();
             values = new ArrayList<>();
             statementss = new ArrayList<>();
-            helper.convertStmtValList(values, statementss, valAndStmt);
+            AbstractJaxb2Ast.convertStmtValList(values, statementss, valAndStmt);
         }
         for ( int i = 0; i <= mutat; i++ ) {
             Phrase<V> expr = helper.extractValue(values, new ExprParam(BlocklyConstants.WAIT + i, BlocklyType.BOOLEAN));
@@ -96,10 +96,15 @@ public class WaitStmt<V> extends Stmt<V> {
             list
                 .addStmt(
                     RepeatStmt
-                        .make(Mode.WAIT, helper.convertPhraseToExpr(expr), statement, helper.extractBlockProperties(block), helper.extractComment(block)));
+                        .make(
+                            Mode.WAIT,
+                            helper.convertPhraseToExpr(expr),
+                            statement,
+                            AbstractJaxb2Ast.extractBlockProperties(block),
+                            AbstractJaxb2Ast.extractComment(block)));
         }
         list.setReadOnly();
-        return WaitStmt.make(list, helper.extractBlockProperties(block), helper.extractComment(block));
+        return WaitStmt.make(list, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

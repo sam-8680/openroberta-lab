@@ -109,9 +109,9 @@ public class StmtFlowCon<V> extends Stmt<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String mode = helper.extractField(fields, BlocklyConstants.FLOW);
-        return StmtFlowCon.make(Flow.get(mode), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String mode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.FLOW);
+        return StmtFlowCon.make(Flow.get(mode), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

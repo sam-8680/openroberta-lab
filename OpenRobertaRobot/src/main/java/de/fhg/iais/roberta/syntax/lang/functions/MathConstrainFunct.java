@@ -93,7 +93,7 @@ public class MathConstrainFunct<V> extends Function<V> {
         exprParams.add(new ExprParam(BlocklyConstants.LOW, BlocklyType.NUMBER_INT));
         exprParams.add(new ExprParam(BlocklyConstants.HIGH, BlocklyType.NUMBER_INT));
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return MathConstrainFunct.make(params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathConstrainFunct.make(params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

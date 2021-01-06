@@ -71,12 +71,13 @@ public final class Hand<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
 
-        String turnDirection = helper.extractField(fields, BlocklyConstants.SIDE);
-        String modus = helper.extractField(fields, BlocklyConstants.MODE);
+        String turnDirection = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SIDE);
+        String modus = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
 
-        return Hand.make(TurnDirection.get(turnDirection), Modus.get(modus), helper.extractBlockProperties(block), helper.extractComment(block));
+        return Hand
+            .make(TurnDirection.get(turnDirection), Modus.get(modus), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

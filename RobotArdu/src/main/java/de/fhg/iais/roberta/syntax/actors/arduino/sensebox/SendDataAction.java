@@ -60,11 +60,11 @@ public class SendDataAction<V> extends Action<V> {
     }
 
     public List<Pair<String, Expr<V>>> getId2Phenomena() {
-        return id2Phenomena;
+        return this.id2Phenomena;
     }
 
     public String getDestination() {
-        return destination;
+        return this.destination;
     }
 
     /**
@@ -76,13 +76,13 @@ public class SendDataAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         ExprList<V> exprList = helper.blockToExprList(block, BlocklyType.NUMBER);
-        List<Field> fields = helper.extractFields(block, (short) 999);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 999);
         List<Pair<String, Expr<V>>> id2Phenomena = new ArrayList<>();
         String destination = fields.get(0).getValue();
         for ( int i = 0; i < exprList.get().size(); i++ ) {
             id2Phenomena.add(Pair.of(fields.get(i + 1).getValue(), exprList.get().get(i)));
         }
-        return SendDataAction.make(destination, id2Phenomena, helper.extractBlockProperties(block), helper.extractComment(block));
+        return SendDataAction.make(destination, id2Phenomena, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

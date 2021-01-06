@@ -68,9 +68,10 @@ public final class NaoMarkInformation<V> extends Sensor<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> naoMarkId = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NUMBER));
-        return NaoMarkInformation.make(helper.convertPhraseToExpr(naoMarkId), helper.extractBlockProperties(block), helper.extractComment(block));
+        return NaoMarkInformation
+            .make(helper.convertPhraseToExpr(naoMarkId), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

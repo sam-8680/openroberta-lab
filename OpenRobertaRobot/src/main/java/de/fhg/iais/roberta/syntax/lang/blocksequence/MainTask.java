@@ -88,16 +88,16 @@ public class MainTask<V> extends Task<V> {
         String debug = null;
         List<Field> fields = block.getField();
         if ( !fields.isEmpty() ) {
-            debug = helper.extractField(fields, "DEBUG");
+            debug = AbstractJaxb2Ast.extractField(fields, "DEBUG");
         }
         if ( block.getMutation().isDeclare() == true ) {
-            List<Statement> statements = helper.extractStatements(block, (short) 1);
+            List<Statement> statements = AbstractJaxb2Ast.extractStatements(block, (short) 1);
             StmtList<V> statement = helper.extractStatement(statements, BlocklyConstants.ST);
-            return MainTask.make(statement, debug, helper.extractBlockProperties(block), helper.extractComment(block));
+            return MainTask.make(statement, debug, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
         }
         StmtList<V> listOfVariables = StmtList.make();
         listOfVariables.setReadOnly();
-        return MainTask.make(listOfVariables, debug, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MainTask.make(listOfVariables, debug, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

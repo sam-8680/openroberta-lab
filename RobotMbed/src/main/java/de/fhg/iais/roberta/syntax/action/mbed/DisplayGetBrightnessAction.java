@@ -57,7 +57,7 @@ public class DisplayGetBrightnessAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
-        return DisplayGetBrightnessAction.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return DisplayGetBrightnessAction.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

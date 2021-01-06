@@ -55,7 +55,7 @@ public class BothMotorsStopAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return BothMotorsStopAction.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return BothMotorsStopAction.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

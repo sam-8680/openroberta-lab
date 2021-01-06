@@ -55,7 +55,7 @@ public final class BrushOff<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return BrushOff.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return BrushOff.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

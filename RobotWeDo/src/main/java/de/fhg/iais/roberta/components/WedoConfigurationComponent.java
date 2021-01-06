@@ -1,4 +1,5 @@
 package de.fhg.iais.roberta.components;
+
 import java.util.Map;
 
 import de.fhg.iais.roberta.blockly.generated.Block;
@@ -7,8 +8,7 @@ import de.fhg.iais.roberta.syntax.BlocklyComment;
 import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
 
 /**
- * Just to override the name of the "usedDefinedPortName" field of the generic {@link ConfigurationComponent}.
- * TODO should be removed if possible
+ * Just to override the name of the "usedDefinedPortName" field of the generic {@link ConfigurationComponent}. TODO should be removed if possible
  */
 public final class WedoConfigurationComponent extends ConfigurationComponent {
     private WedoConfigurationComponent(

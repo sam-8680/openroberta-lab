@@ -118,15 +118,15 @@ public class BluetoothSendAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 2);
-        List<Field> fields = helper.extractFields(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 3);
         Phrase<V> bluetoothSendMessage = helper.extractValue(values, new ExprParam(BlocklyConstants.MESSAGE, BlocklyType.STRING));
         Phrase<V> bluetoothSendConnection = helper.extractValue(values, new ExprParam(BlocklyConstants.CONNECTION, BlocklyType.NULL));
         Data data = block.getData();
         String datum = data.getValue();
         if ( fields.size() == 3 ) {
-            String bluetoothSendChannel = helper.extractField(fields, BlocklyConstants.CHANNEL);
-            String bluetoothRecieveDataType = helper.extractField(fields, BlocklyConstants.TYPE);
+            String bluetoothSendChannel = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CHANNEL);
+            String bluetoothRecieveDataType = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
             return BluetoothSendAction
                 .make(
                     datum,
@@ -134,11 +134,11 @@ public class BluetoothSendAction<V> extends Action<V> {
                     helper.convertPhraseToExpr(bluetoothSendMessage),
                     bluetoothSendChannel,
                     bluetoothRecieveDataType,
-                    helper.extractBlockProperties(block),
-                    helper.extractComment(block));
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block));
         } else {
             String bluetoothSendChannel = "-1";
-            String bluetoothRecieveDataType = helper.extractField(fields, BlocklyConstants.TYPE);
+            String bluetoothRecieveDataType = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
             return BluetoothSendAction
                 .make(
                     datum,
@@ -146,8 +146,8 @@ public class BluetoothSendAction<V> extends Action<V> {
                     helper.convertPhraseToExpr(bluetoothSendMessage),
                     bluetoothSendChannel,
                     bluetoothRecieveDataType,
-                    helper.extractBlockProperties(block),
-                    helper.extractComment(block));
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block));
         }
     }
 

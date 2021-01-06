@@ -109,29 +109,29 @@ public class LightAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> ledColor = helper.extractValue(values, new ExprParam(BlocklyConstants.COLOR, BlocklyType.COLOR));
-        fields = helper.extractFields(block, (short) 3);
-        isActor = helper.extractField(fields, BlocklyConstants.SENSORPORT, BlocklyConstants.NO_PORT).equals(BlocklyConstants.NO_PORT);
-        isBlink = helper.extractField(fields, BlocklyConstants.SWITCH_STATE, BlocklyConstants.DEFAULT).equals(BlocklyConstants.DEFAULT);
+        fields = AbstractJaxb2Ast.extractFields(block, (short) 3);
+        isActor = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT, BlocklyConstants.NO_PORT).equals(BlocklyConstants.NO_PORT);
+        isBlink = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SWITCH_STATE, BlocklyConstants.DEFAULT).equals(BlocklyConstants.DEFAULT);
         String port =
             isActor
-                ? helper.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT)
-                : helper.extractField(fields, BlocklyConstants.SENSORPORT, BlocklyConstants.NO_PORT);
+                ? AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT)
+                : AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT, BlocklyConstants.NO_PORT);
 
         String mode =
             isBlink
-                ? helper.extractField(fields, BlocklyConstants.SWITCH_BLINK, BlocklyConstants.DEFAULT)
-                : helper.extractField(fields, BlocklyConstants.SWITCH_STATE, BlocklyConstants.DEFAULT);
-        String color = helper.extractField(fields, BlocklyConstants.SWITCH_COLOR, BlocklyConstants.DEFAULT);
+                ? AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SWITCH_BLINK, BlocklyConstants.DEFAULT)
+                : AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SWITCH_STATE, BlocklyConstants.DEFAULT);
+        String color = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SWITCH_COLOR, BlocklyConstants.DEFAULT);
         return LightAction
             .make(
                 factory.sanitizePort(port),
                 factory.getBrickLedColor(color),
                 factory.getBlinkMode(mode),
                 helper.convertPhraseToExpr(ledColor),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

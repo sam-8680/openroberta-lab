@@ -83,12 +83,13 @@ public class LedOnAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT, "0");
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT, "0");
         Phrase<V> ledColor = helper.extractValue(values, new ExprParam(BlocklyConstants.COLOR, BlocklyType.COLOR));
 
-        return LedOnAction.make(port, helper.convertPhraseToExpr(ledColor), helper.extractBlockProperties(block), helper.extractComment(block));
+        return LedOnAction
+            .make(port, helper.convertPhraseToExpr(ledColor), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

@@ -60,14 +60,14 @@ public class Joystick<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 3);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 3);
 
-        String port = helper.extractField(fields, BlocklyConstants.SENSORPORT);
-        String mode = helper.extractField(fields, BlocklyConstants.MODE);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT);
+        String mode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
         boolean isPortInMutation = (block.getMutation() != null) && (block.getMutation().getPort() != null);
         SensorMetaDataBean sensorData =
             new SensorMetaDataBean(factory.sanitizePort(port), factory.getMode(mode), factory.sanitizeSlot(BlocklyConstants.EMPTY_SLOT), isPortInMutation);
-        return Joystick.make(mode, sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return Joystick.make(mode, sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -61,14 +61,14 @@ public class CompassSensor<V> extends ExternalSensor<V> {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
         SensorMetaDataBean sensorMetaDataBean;
         if ( block.getType().equals(BlocklyConstants.ROB_SENSORS_COMPASS_CALIBRATE) ) {
-            List<Field> fields = helper.extractFields(block, (short) 1);
-            String portName = helper.extractField(fields, BlocklyConstants.SENSORPORT);
+            List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+            String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT);
             sensorMetaDataBean =
                 new SensorMetaDataBean(factory.sanitizePort(portName), factory.getMode("CALIBRATE"), factory.sanitizeSlot(BlocklyConstants.NO_SLOT), false);
-            return CompassSensor.make(sensorMetaDataBean, helper.extractBlockProperties(block), helper.extractComment(block));
+            return CompassSensor.make(sensorMetaDataBean, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
         }
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return CompassSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return CompassSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

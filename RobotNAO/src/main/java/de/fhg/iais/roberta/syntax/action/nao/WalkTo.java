@@ -81,7 +81,7 @@ public final class WalkTo<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
 
         Phrase<V> walkToX = helper.extractValue(values, new ExprParam(BlocklyConstants.X, BlocklyType.NUMBER_INT));
         Phrase<V> walkToY = helper.extractValue(values, new ExprParam(BlocklyConstants.Y, BlocklyType.NUMBER_INT));
@@ -92,8 +92,8 @@ public final class WalkTo<V> extends Action<V> {
                 helper.convertPhraseToExpr(walkToX),
                 helper.convertPhraseToExpr(walkToY),
                 helper.convertPhraseToExpr(walkToTheta),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

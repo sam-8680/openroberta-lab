@@ -123,11 +123,11 @@ public final class PointLookAt<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        List<Value> values = helper.extractValues(block, (short) 4);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 4);
 
-        String pointLook = helper.extractField(fields, BlocklyConstants.MODE);
-        String frame = helper.extractField(fields, BlocklyConstants.DIRECTION);
+        String pointLook = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
+        String frame = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
         Phrase<V> pointX = helper.extractValue(values, new ExprParam(BlocklyConstants.X, BlocklyType.NUMBER_INT));
         Phrase<V> pointY = helper.extractValue(values, new ExprParam(BlocklyConstants.Y, BlocklyType.NUMBER_INT));
         Phrase<V> pointZ = helper.extractValue(values, new ExprParam(BlocklyConstants.Z, BlocklyType.NUMBER_INT));
@@ -141,8 +141,8 @@ public final class PointLookAt<V> extends Action<V> {
                 helper.convertPhraseToExpr(pointY),
                 helper.convertPhraseToExpr(pointZ),
                 helper.convertPhraseToExpr(speed),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

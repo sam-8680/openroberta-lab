@@ -52,9 +52,10 @@ public class SerialWriteAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         helper.getDropdownFactory();
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> value = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.ANY));
-        return SerialWriteAction.make(helper.convertPhraseToExpr(value), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SerialWriteAction
+            .make(helper.convertPhraseToExpr(value), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -216,11 +216,18 @@ public class IfStmt<V> extends Stmt<V> {
             elseList.addStmt(ExprStmt.make(helper.convertPhraseToExpr(elseStmt)));
             elseList.setReadOnly();
             return IfStmt
-                .make(helper.convertPhraseToExpr(ifExpr), thenList, elseList, helper.extractBlockProperties(block), helper.extractComment(block), 0, 0);
+                .make(
+                    helper.convertPhraseToExpr(ifExpr),
+                    thenList,
+                    elseList,
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block),
+                    0,
+                    0);
         }
         Mutation mutation = block.getMutation();
-        int _else = helper.getElse(mutation);
-        int _elseIf = helper.getElseIf(mutation);
+        int _else = AbstractJaxb2Ast.getElse(mutation);
+        int _elseIf = AbstractJaxb2Ast.getElseIf(mutation);
 
         return helper.blocksToIfStmt(block, _else, _elseIf);
     }

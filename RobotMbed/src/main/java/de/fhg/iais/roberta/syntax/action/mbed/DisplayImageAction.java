@@ -92,12 +92,16 @@ public class DisplayImageAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        String mode = helper.extractField(fields, BlocklyConstants.TYPE);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        String mode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
         Phrase<V> image = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.STRING));
         return DisplayImageAction
-            .make(DisplayImageMode.get(mode), helper.convertPhraseToExpr(image), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                DisplayImageMode.get(mode),
+                helper.convertPhraseToExpr(image),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override
@@ -107,7 +111,7 @@ public class DisplayImageAction<V> extends Action<V> {
 
         Mutation mutation = new Mutation();
         mutation.setType(this.displayImageMode.name());
-        
+
         jaxbDestination.setMutation(mutation);
         Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.TYPE, this.displayImageMode.name());
         Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.VALUE, this.valuesToDisplay);

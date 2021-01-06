@@ -103,21 +103,21 @@ public class LedDimAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
 
         Phrase<V> from = helper.extractValue(values, new ExprParam(BlocklyConstants.FROM, BlocklyType.NUMBER));
         Phrase<V> to = helper.extractValue(values, new ExprParam(BlocklyConstants.TO, BlocklyType.NUMBER));
         Phrase<V> duration = helper.extractValue(values, new ExprParam(BlocklyConstants.DURATION, BlocklyType.NUMBER_INT));
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT);
         return LedDimAction
             .make(
                 port,
                 helper.convertPhraseToExpr(from),
                 helper.convertPhraseToExpr(to),
                 helper.convertPhraseToExpr(duration),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
 
     }
 

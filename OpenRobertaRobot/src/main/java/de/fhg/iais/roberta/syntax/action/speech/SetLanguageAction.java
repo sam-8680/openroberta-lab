@@ -70,11 +70,12 @@ public final class SetLanguageAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String language = helper.extractField(fields, BlocklyConstants.LANGUAGE);
+        String language = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.LANGUAGE);
 
-        return SetLanguageAction.make(factory.getLanguageMode(language), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SetLanguageAction
+            .make(factory.getLanguageMode(language), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

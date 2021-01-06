@@ -115,13 +115,13 @@ public class MethodReturn<V> extends Method<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String name = helper.extractField(fields, BlocklyConstants.NAME);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String name = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.NAME);
 
         List<Object> valAndStmt = block.getRepetitions().getValueAndStatement();
         ArrayList<Value> values = new ArrayList<Value>();
         ArrayList<Statement> statements = new ArrayList<Statement>();
-        helper.convertStmtValList(values, statements, valAndStmt);
+        AbstractJaxb2Ast.convertStmtValList(values, statements, valAndStmt);
         ExprList<V> exprList = helper.statementsToExprs(statements, BlocklyConstants.ST);
         StmtList<V> statement = helper.extractStatement(statements, BlocklyConstants.STACK);
         Phrase<V> expr = helper.extractValue(values, new ExprParam(BlocklyConstants.RETURN, BlocklyType.NULL));
@@ -131,10 +131,10 @@ public class MethodReturn<V> extends Method<V> {
                 name,
                 exprList,
                 statement,
-                BlocklyType.get(helper.extractField(fields, BlocklyConstants.TYPE)),
+                BlocklyType.get(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE)),
                 helper.convertPhraseToExpr(expr),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -94,19 +94,19 @@ public class ToneAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
         Phrase<V> left = helper.extractValue(values, new ExprParam(BlocklyConstants.FREQUENCE, BlocklyType.NUMBER_INT));
         Phrase<V> right = helper.extractValue(values, new ExprParam(BlocklyConstants.DURATION, BlocklyType.NUMBER_INT));
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
         return ToneAction
             .make(
                 helper.convertPhraseToExpr(left),
                 helper.convertPhraseToExpr(right),
                 factory.sanitizePort(port),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

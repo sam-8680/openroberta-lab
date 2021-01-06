@@ -88,12 +88,12 @@ public final class BothMotorsOnAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
-        List<Value> values = helper.extractValues(block, (short) 2);
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
         Phrase<V> speedA = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER_A, BlocklyType.NUMBER_INT));
         Phrase<V> speedB = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER_B, BlocklyType.NUMBER_INT));
-        String portA = helper.extractField(fields, BlocklyConstants.A, BlocklyConstants.A);
-        String portB = helper.extractField(fields, BlocklyConstants.B, BlocklyConstants.B);
+        String portA = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.A, BlocklyConstants.A);
+        String portB = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.B, BlocklyConstants.B);
 
         return BothMotorsOnAction
             .make(
@@ -101,8 +101,8 @@ public final class BothMotorsOnAction<V> extends Action<V> {
                 portB,
                 helper.convertPhraseToExpr(speedA),
                 helper.convertPhraseToExpr(speedB),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

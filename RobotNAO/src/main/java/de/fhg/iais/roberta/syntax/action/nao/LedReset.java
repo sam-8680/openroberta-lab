@@ -64,10 +64,10 @@ public final class LedReset<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String leds = helper.extractField(fields, BlocklyConstants.LED);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String leds = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.LED);
 
-        return LedReset.make(Led.get(leds), helper.extractBlockProperties(block), helper.extractComment(block));
+        return LedReset.make(Led.get(leds), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

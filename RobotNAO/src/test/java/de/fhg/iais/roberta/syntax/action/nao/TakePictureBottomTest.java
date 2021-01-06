@@ -18,7 +18,7 @@ public class TakePictureBottomTest extends NaoAstTest {
     /*
     @Test
     public void astToBlock_XMLtoJAXBtoASTtoXML_ReturnsSameXML() throws Exception {
-    
+
         UnitTestHelper.checkProgramReverseTransformation(testFactory, "/action/takePicture_bottom.xml");
     }*/
 }

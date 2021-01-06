@@ -76,12 +76,16 @@ public class MotorSetPowerAction<V> extends MoveAction<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        String portName = helper.extractField(fields, BlocklyConstants.MOTORPORT);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
         Phrase<V> left = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
         return MotorSetPowerAction
-            .make(factory.sanitizePort(portName), helper.convertPhraseToExpr(left), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                factory.sanitizePort(portName),
+                helper.convertPhraseToExpr(left),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -66,9 +66,9 @@ public final class ClearDisplayAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
-        return ClearDisplayAction.make(factory.sanitizePort(port), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
+        return ClearDisplayAction.make(factory.sanitizePort(port), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

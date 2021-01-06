@@ -53,7 +53,7 @@ public final class GetLanguage<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
-        return GetLanguage.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return GetLanguage.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

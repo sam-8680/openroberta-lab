@@ -85,12 +85,16 @@ public class LedBarSetAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
 
         Phrase<V> brightness = helper.extractValue(values, new ExprParam(BlocklyConstants.BRIGHTNESS, BlocklyType.NUMBER_INT));
         Phrase<V> x = helper.extractValue(values, new ExprParam(BlocklyConstants.X, BlocklyType.NUMBER_INT));
         return LedBarSetAction
-            .make(helper.convertPhraseToExpr(x), helper.convertPhraseToExpr(brightness), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                helper.convertPhraseToExpr(x),
+                helper.convertPhraseToExpr(brightness),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
 
     }
 

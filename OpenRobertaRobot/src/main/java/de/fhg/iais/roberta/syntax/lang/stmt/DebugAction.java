@@ -51,16 +51,16 @@ public class DebugAction<V> extends Stmt<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         helper.getDropdownFactory();
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> value = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.ANY));
-        return DebugAction.make(helper.convertPhraseToExpr(value), helper.extractBlockProperties(block), helper.extractComment(block));
+        return DebugAction.make(helper.convertPhraseToExpr(value), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
         Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.OUT, value);
+        Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.OUT, this.value);
         return jaxbDestination;
     }
 

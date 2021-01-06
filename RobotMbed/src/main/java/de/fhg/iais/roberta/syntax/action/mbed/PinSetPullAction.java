@@ -77,10 +77,11 @@ public class PinSetPullAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String port = helper.extractField(fields, BlocklyConstants.PIN_PORT);
-        String pinPull = helper.extractField(fields, BlocklyConstants.PIN_PULL);
-        return PinSetPullAction.make(factory.getMode(pinPull), factory.sanitizePort(port), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.PIN_PORT);
+        String pinPull = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.PIN_PULL);
+        return PinSetPullAction
+            .make(factory.getMode(pinPull), factory.sanitizePort(port), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

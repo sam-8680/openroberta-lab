@@ -23,8 +23,8 @@ import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
 
 /**
- * This class represents the <b>mbedActions_set_servo</b> block from Blockly into the AST (abstract syntax tree). Object from this class will generate
- * code for setting the motor speed and type of movement connected on given port and turn the motor on.<br/>
+ * This class represents the <b>mbedActions_set_servo</b> block from Blockly into the AST (abstract syntax tree). Object from this class will generate code for
+ * setting the motor speed and type of movement connected on given port and turn the motor on.<br/>
  * <br/>
  */
 public final class ServoSetAction<V> extends Action<V> {
@@ -78,12 +78,16 @@ public final class ServoSetAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        String port = helper.extractField(fields, BlocklyConstants.PIN_PORT);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.PIN_PORT);
         Phrase<V> value = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NUMBER_INT));
         return ServoSetAction
-            .make(factory.sanitizePort(port), helper.convertPhraseToExpr(value), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                factory.sanitizePort(port),
+                helper.convertPhraseToExpr(value),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

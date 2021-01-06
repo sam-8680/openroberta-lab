@@ -81,14 +81,14 @@ public class MethodVoid<V> extends Method<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String name = helper.extractField(fields, BlocklyConstants.NAME);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String name = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.NAME);
 
-        List<Statement> statements = helper.extractStatements(block, (short) 2);
+        List<Statement> statements = AbstractJaxb2Ast.extractStatements(block, (short) 2);
         ExprList<V> exprList = helper.statementsToExprs(statements, BlocklyConstants.ST);
         StmtList<V> statement = helper.extractStatement(statements, BlocklyConstants.STACK);
 
-        return MethodVoid.make(name, exprList, statement, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MethodVoid.make(name, exprList, statement, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

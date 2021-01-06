@@ -21,8 +21,7 @@ import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
 
 /**
  * This class represents the <b>mbedActions_fourdigitdisplay_clear</b> block from Blockly into the AST (abstract syntax tree). Object from this class will
- * generate code
- * for clearing the Grove 4-Digit Display.<br>
+ * generate code for clearing the Grove 4-Digit Display.<br>
  * <br>
  * To create an instance from this class use the method {@link #make(Expr, BlocklyBlockProperties, BlocklyComment)}.<br>
  * <br>
@@ -90,7 +89,7 @@ public class FourDigitDisplayShowAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
         Phrase<V> value = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NUMBER_INT));
         Phrase<V> position = helper.extractValue(values, new ExprParam(BlocklyConstants.POSITION, BlocklyType.NUMBER_INT));
         Phrase<V> colon = helper.extractValue(values, new ExprParam(BlocklyConstants.COLON, BlocklyType.BOOLEAN));
@@ -99,8 +98,8 @@ public class FourDigitDisplayShowAction<V> extends Action<V> {
                 helper.convertPhraseToExpr(value),
                 helper.convertPhraseToExpr(position),
                 helper.convertPhraseToExpr(colon),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

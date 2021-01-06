@@ -113,7 +113,7 @@ public class RestInterfaceTest {
         this.serverProperties.getserverProperties().put("server.public", "true"); // not dangerous! For this.restUser the mail management is set to null
 
         this.robotCommunicator = new RobotCommunicator();
-        this.restUser = new ClientUser(this.robotCommunicator, serverProperties, null);
+        this.restUser = new ClientUser(this.robotCommunicator, this.serverProperties, null);
 
         TestConfiguration tc = TestConfiguration.setup();
         this.sessionFactoryWrapper = tc.getSessionFactoryWrapper();
@@ -122,9 +122,9 @@ public class RestInterfaceTest {
 
         this.restProject = new ClientProgramController(this.serverProperties);
         this.restConfiguration = new ClientConfiguration(this.robotCommunicator);
-        Map<String, IRobotFactory> robotPlugins = ServerStarter.configureRobotPlugins(robotCommunicator, serverProperties, EMPTY_STRING_LIST);
-        this.sPid = HttpSessionState.initOnlyLegalForDebugging("pid", robotPlugins, serverProperties, 1);
-        this.sMinscha = HttpSessionState.initOnlyLegalForDebugging("minscha", robotPlugins, serverProperties, 2);
+        Map<String, IRobotFactory> robotPlugins = ServerStarter.configureRobotPlugins(this.robotCommunicator, this.serverProperties, EMPTY_STRING_LIST);
+        this.sPid = HttpSessionState.initOnlyLegalForDebugging("pid", robotPlugins, this.serverProperties, 1);
+        this.sMinscha = HttpSessionState.initOnlyLegalForDebugging("minscha", robotPlugins, this.serverProperties, 2);
     }
 
     /**

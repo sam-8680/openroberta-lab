@@ -89,7 +89,7 @@ public class TextJoinFunct<V> extends Function<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         ExprList<V> exprList = helper.blockToExprList(block, BlocklyType.STRING);
-        return TextJoinFunct.make(exprList, helper.extractBlockProperties(block), helper.extractComment(block));
+        return TextJoinFunct.make(exprList, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

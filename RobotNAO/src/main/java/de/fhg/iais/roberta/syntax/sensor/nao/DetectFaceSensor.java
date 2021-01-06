@@ -47,6 +47,6 @@ public final class DetectFaceSensor<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return DetectFaceSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return DetectFaceSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 }

@@ -68,11 +68,11 @@ public final class ApplyPosture<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String posture = helper.extractField(fields, BlocklyConstants.DIRECTION);
+        String posture = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
 
-        return ApplyPosture.make(Posture.get(posture), helper.extractBlockProperties(block), helper.extractComment(block));
+        return ApplyPosture.make(Posture.get(posture), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -97,21 +97,21 @@ public class DriveAction<V> extends Action<V> {
         MotionParam<V> mp;
         Phrase<V> power;
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        fields = helper.extractFields(block, (short) 1);
-        mode = helper.extractField(fields, BlocklyConstants.DIRECTION);
+        fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        mode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
 
         if ( !block.getType().equals(BlocklyConstants.ROB_ACTIONS_MOTOR_DIFF_ON) ) {
-            values = helper.extractValues(block, (short) 2);
+            values = AbstractJaxb2Ast.extractValues(block, (short) 2);
             power = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
             Phrase<V> distance = helper.extractValue(values, new ExprParam(BlocklyConstants.DISTANCE, BlocklyType.NUMBER_INT));
             MotorDuration<V> md = new MotorDuration<V>(factory.getMotorMoveMode("DISTANCE"), helper.convertPhraseToExpr(distance));
             mp = new MotionParam.Builder<V>().speed(helper.convertPhraseToExpr(power)).duration(md).build();
         } else {
-            values = helper.extractValues(block, (short) 1);
+            values = AbstractJaxb2Ast.extractValues(block, (short) 1);
             power = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
             mp = new MotionParam.Builder<V>().speed(helper.convertPhraseToExpr(power)).build();
         }
-        return DriveAction.make(factory.getDriveDirection(mode), mp, helper.extractBlockProperties(block), helper.extractComment(block));
+        return DriveAction.make(factory.getDriveDirection(mode), mp, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

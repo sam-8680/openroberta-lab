@@ -55,9 +55,9 @@ public final class FlameSensor<V> extends Sensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         final BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        final List<Field> fields = helper.extractFields(block, (short) 3);
-        final String port = helper.extractField(fields, BlocklyConstants.SENSORPORT);
-        return FlameSensor.make(factory.sanitizePort(port), helper.extractBlockProperties(block), helper.extractComment(block));
+        final List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 3);
+        final String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSORPORT);
+        return FlameSensor.make(factory.sanitizePort(port), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

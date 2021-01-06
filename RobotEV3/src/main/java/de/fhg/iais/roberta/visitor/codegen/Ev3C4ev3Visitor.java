@@ -747,9 +747,8 @@ public class Ev3C4ev3Visitor extends AbstractCppVisitor implements IEv3Visitor<V
     }
 
     /**
-     * Returns whether the port order of the left and right motors needs to be reversed.
-     * This happens in {@link #getDriveMotorPortsConstant()} as the c4ev3 API only accepts the ports via ordered constants.
-     * This method is then used to check whether the order of the left and right (e.g C B - > B C) is reversed.
+     * Returns whether the port order of the left and right motors needs to be reversed. This happens in {@link #getDriveMotorPortsConstant()} as the c4ev3 API
+     * only accepts the ports via ordered constants. This method is then used to check whether the order of the left and right (e.g C B - > B C) is reversed.
      *
      * @return whether the order of the left and right motors is reversed
      */
@@ -763,10 +762,8 @@ public class Ev3C4ev3Visitor extends AbstractCppVisitor implements IEv3Visitor<V
 
     private int getTurn(TurnAction<Void> turnAction) {
         /**
-         * Turn is from -200 to 200
-         * O: motor run at the same power
-         * 100: one motor run at the specified power the other doesn't
-         * 200: one motor run at the specified power and the other at negative power
+         * Turn is from -200 to 200 O: motor run at the same power 100: one motor run at the specified power the other doesn't 200: one motor run at the
+         * specified power and the other at negative power
          */
         int turn = 200;
         if ( isAnyDriveMotorReverse() ) {

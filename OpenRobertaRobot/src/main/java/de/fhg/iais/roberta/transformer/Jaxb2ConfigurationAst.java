@@ -137,7 +137,11 @@ public final class Jaxb2ConfigurationAst {
         // TODO this is workaround for the robot specific "robBrick_*-Brick" blocks, which have varying names for the "userDefinedPortName" from robot to robot
         // TODO this this should be removed if possible
         if ( BRICK_BLOCK_PATTERN.matcher(firstBlock.getType()).find() ) {
-            String className = ConfigurationComponent.class.getPackage().getName() + '.' + StringUtils.capitalize(componentType.toLowerCase(Locale.ENGLISH)) + "ConfigurationComponent";
+            String className =
+                ConfigurationComponent.class.getPackage().getName()
+                    + '.'
+                    + StringUtils.capitalize(componentType.toLowerCase(Locale.ENGLISH))
+                    + "ConfigurationComponent";
             try {
                 Constructor<ConfigurationComponent> constructor =
                     (Constructor<ConfigurationComponent>) Class

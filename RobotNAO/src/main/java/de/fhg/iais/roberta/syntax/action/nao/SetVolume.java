@@ -68,11 +68,11 @@ public final class SetVolume<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
         Phrase<V> volume = helper.extractValue(values, new ExprParam(BlocklyConstants.VOLUME, BlocklyType.NUMBER_INT));
 
-        return SetVolume.make(helper.convertPhraseToExpr(volume), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SetVolume.make(helper.convertPhraseToExpr(volume), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

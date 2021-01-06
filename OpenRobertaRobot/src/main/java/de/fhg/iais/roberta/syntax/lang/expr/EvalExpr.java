@@ -164,10 +164,10 @@ public class EvalExpr<V> extends Expr<V> {
      */
     @SuppressWarnings("unchecked")
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) throws Exception {
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String expr = helper.extractField(fields, "EXPRESSION");
-        String type = helper.extractField(fields, "TYPE");
-        return (Phrase<V>) EvalExpr.make(expr, type, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String expr = AbstractJaxb2Ast.extractField(fields, "EXPRESSION");
+        String type = AbstractJaxb2Ast.extractField(fields, "TYPE");
+        return (Phrase<V>) EvalExpr.make(expr, type, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

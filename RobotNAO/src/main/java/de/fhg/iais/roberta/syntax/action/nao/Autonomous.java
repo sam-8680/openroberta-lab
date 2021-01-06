@@ -61,11 +61,11 @@ public final class Autonomous<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String onOff = helper.extractField(fields, BlocklyConstants.MODE);
+        String onOff = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
 
-        return Autonomous.make(WorkingState.get(onOff), helper.extractBlockProperties(block), helper.extractComment(block));
+        return Autonomous.make(WorkingState.get(onOff), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -75,11 +75,12 @@ public class DisplaySetBrightnessAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
         Phrase<V> brightness = helper.extractValue(values, new ExprParam(BlocklyConstants.BRIGHTNESS, BlocklyType.NUMBER_INT));
 
-        return DisplaySetBrightnessAction.make(helper.convertPhraseToExpr(brightness), helper.extractBlockProperties(block), helper.extractComment(block));
+        return DisplaySetBrightnessAction
+            .make(helper.convertPhraseToExpr(brightness), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

@@ -91,7 +91,7 @@ public class SayTextAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.STRING));
         Phrase<V> speed = helper.extractValue(values, new ExprParam(BlocklyConstants.VOICESPEED, BlocklyType.NUMBER_INT));
         Phrase<V> pitch = helper.extractValue(values, new ExprParam(BlocklyConstants.VOICEPITCH, BlocklyType.NUMBER_INT));
@@ -100,8 +100,8 @@ public class SayTextAction<V> extends Action<V> {
                 helper.convertPhraseToExpr(msg),
                 helper.convertPhraseToExpr(speed),
                 helper.convertPhraseToExpr(pitch),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

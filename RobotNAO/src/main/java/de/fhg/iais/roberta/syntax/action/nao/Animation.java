@@ -69,11 +69,11 @@ public final class Animation<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String move = helper.extractField(fields, BlocklyConstants.MOVE);
+        String move = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOVE);
 
-        return Animation.make(Move.get(move), helper.extractBlockProperties(block), helper.extractComment(block));
+        return Animation.make(Move.get(move), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

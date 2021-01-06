@@ -43,7 +43,7 @@ public class ActivityTask<V> extends Task<V> {
      * @return read only object of class {@link ActivityTask}
      */
     public static <V> ActivityTask<V> make(Expr<V> activityName, BlocklyBlockProperties properties, BlocklyComment comment) {
-        return new ActivityTask<V>(activityName, properties, comment);
+        return new ActivityTask<>(activityName, properties, comment);
     }
 
     /**
@@ -81,9 +81,9 @@ public class ActivityTask<V> extends Task<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> expr = helper.extractValue(values, new ExprParam(BlocklyConstants.ACTIVITY, BlocklyType.STRING));
-        return ActivityTask.make(helper.convertPhraseToExpr(expr), helper.extractBlockProperties(block), helper.extractComment(block));
+        return ActivityTask.make(helper.convertPhraseToExpr(expr), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

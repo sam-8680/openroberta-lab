@@ -17,7 +17,7 @@ public class HandLeftCloseTest extends NaoAstTest {
     /*
     @Test
     public void astToBlock_XMLtoJAXBtoASTtoXML_ReturnsSameXML() throws Exception {
-    
+
         UnitTestHelper.checkProgramReverseTransformation(testFactory, "/action/handLeftOpen.xml");
     }*/
 }

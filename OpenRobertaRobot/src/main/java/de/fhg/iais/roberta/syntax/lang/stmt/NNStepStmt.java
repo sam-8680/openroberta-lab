@@ -44,11 +44,11 @@ public class NNStepStmt<V> extends Stmt<V> {
     }
 
     public List<Expr<V>> getIl() {
-        return il;
+        return this.il;
     }
 
     public List<Var<V>> getOl() {
-        return ol;
+        return this.ol;
     }
 
     @Override
@@ -89,12 +89,12 @@ public class NNStepStmt<V> extends Stmt<V> {
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT0", il.get(0));
-        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT1", il.get(1));
-        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT2", il.get(2));
-        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT0", ol.get(0));
-        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT1", ol.get(1));
-        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT2", ol.get(2));
+        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT0", this.il.get(0));
+        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT1", this.il.get(1));
+        Ast2JaxbHelper.addValue(jaxbDestination, "INPUT2", this.il.get(2));
+        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT0", this.ol.get(0));
+        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT1", this.ol.get(1));
+        Ast2JaxbHelper.addValue(jaxbDestination, "OUTPUT2", this.ol.get(2));
         Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
         return jaxbDestination;
     }

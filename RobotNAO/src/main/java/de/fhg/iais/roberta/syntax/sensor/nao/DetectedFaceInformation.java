@@ -68,9 +68,10 @@ public final class DetectedFaceInformation<V> extends Sensor<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> faceName = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.STRING));
-        return DetectedFaceInformation.make(helper.convertPhraseToExpr(faceName), helper.extractBlockProperties(block), helper.extractComment(block));
+        return DetectedFaceInformation
+            .make(helper.convertPhraseToExpr(faceName), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

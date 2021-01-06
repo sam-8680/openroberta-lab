@@ -88,11 +88,15 @@ public class AssignStmt<V> extends Stmt<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> p = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.CAPTURED_TYPE));
         Expr<V> exprr = helper.convertPhraseToExpr(p);
         return AssignStmt
-            .make((Var<V>) helper.extractVar(block), helper.convertPhraseToExpr(exprr), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                (Var<V>) helper.extractVar(block),
+                helper.convertPhraseToExpr(exprr),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

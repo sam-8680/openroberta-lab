@@ -69,11 +69,11 @@ public final class SetMode<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String modus = helper.extractField(fields, BlocklyConstants.DIRECTION);
+        String modus = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
 
-        return SetMode.make(Modus.get(modus), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SetMode.make(Modus.get(modus), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

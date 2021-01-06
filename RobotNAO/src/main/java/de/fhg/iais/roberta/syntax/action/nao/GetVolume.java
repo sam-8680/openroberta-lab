@@ -53,7 +53,7 @@ public final class GetVolume<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
-        return GetVolume.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return GetVolume.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

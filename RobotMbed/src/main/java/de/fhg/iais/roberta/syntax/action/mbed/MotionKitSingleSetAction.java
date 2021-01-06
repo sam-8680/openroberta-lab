@@ -19,8 +19,8 @@ import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
 
 /**
- * This class represents the <b>mbedActions_motionkit_single_set</b> block from Blockly into the AST (abstract syntax tree). Object from this class will generate
- * code for setting the motor speed and type of movement connected on given port and turn the motor on.<br/>
+ * This class represents the <b>mbedActions_motionkit_single_set</b> block from Blockly into the AST (abstract syntax tree). Object from this class will
+ * generate code for setting the motor speed and type of movement connected on given port and turn the motor on.<br/>
  * <br/>
  */
 public final class MotionKitSingleSetAction<V> extends Action<V> {
@@ -49,11 +49,11 @@ public final class MotionKitSingleSetAction<V> extends Action<V> {
     }
 
     public String getPort() {
-        return port;
+        return this.port;
     }
 
     public String getDirection() {
-        return direction;
+        return this.direction;
     }
 
     @Override
@@ -75,10 +75,15 @@ public final class MotionKitSingleSetAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String port = helper.extractField(fields, BlocklyConstants.MOTORPORT);
-        String direction = helper.extractField(fields, BlocklyConstants.DIRECTION);
-        return MotionKitSingleSetAction.make(factory.sanitizePort(port), factory.getMode(direction), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
+        String direction = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
+        return MotionKitSingleSetAction
+            .make(
+                factory.sanitizePort(port),
+                factory.getMode(direction),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -68,10 +68,10 @@ public final class SideBrush<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        String workingState = helper.extractField(fields, "BRUSH_STATE");
-        return SideBrush.make(WorkingState.get(workingState), helper.extractBlockProperties(block), helper.extractComment(block));
+        String workingState = AbstractJaxb2Ast.extractField(fields, "BRUSH_STATE");
+        return SideBrush.make(WorkingState.get(workingState), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

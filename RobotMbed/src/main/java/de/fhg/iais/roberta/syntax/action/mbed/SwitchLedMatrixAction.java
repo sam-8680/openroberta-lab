@@ -66,10 +66,10 @@ public class SwitchLedMatrixAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
 
-        boolean activated = helper.extractField(fields, BlocklyConstants.STATE).equals("ON");
-        return SwitchLedMatrixAction.make(activated, helper.extractBlockProperties(block), helper.extractComment(block));
+        boolean activated = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.STATE).equals("ON");
+        return SwitchLedMatrixAction.make(activated, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

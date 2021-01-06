@@ -118,9 +118,9 @@ public class ImageShiftFunction<V> extends Function<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 2);
-        IDirection shiftingDirection = factory.getDirection(helper.extractField(fields, BlocklyConstants.OP));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
+        IDirection shiftingDirection = factory.getDirection(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.OP));
         Phrase<V> image = helper.extractValue(values, new ExprParam(BlocklyConstants.A, BlocklyType.PREDEFINED_IMAGE));
         Phrase<V> numberOfPositions = helper.extractValue(values, new ExprParam(BlocklyConstants.B, BlocklyType.NUMBER_INT));
         return ImageShiftFunction
@@ -128,8 +128,8 @@ public class ImageShiftFunction<V> extends Function<V> {
                 helper.convertPhraseToExpr(image),
                 helper.convertPhraseToExpr(numberOfPositions),
                 shiftingDirection,
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

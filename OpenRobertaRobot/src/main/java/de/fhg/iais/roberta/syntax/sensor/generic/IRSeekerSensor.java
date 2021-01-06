@@ -12,8 +12,8 @@ import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.sensor.ISensorVisitor;
 
 /**
- * This class represents <b>robSensors_irseeker_getSample</b> block from Blockly
- * into the AST (abstract syntax tree). Object from this class will generate code for setting the mode of the sensor or getting a sample from the sensor.<br/>
+ * This class represents <b>robSensors_irseeker_getSample</b> block from Blockly into the AST (abstract syntax tree). Object from this class will generate code
+ * for setting the mode of the sensor or getting a sample from the sensor.<br/>
  * <br>
  * The client must provide the {@link SensorPort} and {@link IRSeekerSensorMode}. See enum {@link IRSeekerSensorMode} for all possible modes of the sensor.<br>
  * <br>
@@ -53,7 +53,7 @@ public class IRSeekerSensor<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return IRSeekerSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return IRSeekerSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
 }

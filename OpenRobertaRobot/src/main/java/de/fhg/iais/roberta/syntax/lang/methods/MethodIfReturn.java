@@ -97,7 +97,7 @@ public class MethodIfReturn<V> extends Method<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
         Phrase<V> left = helper.extractValue(values, new ExprParam(BlocklyConstants.CONDITION, BlocklyType.BOOLEAN));
         Phrase<V> right = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NULL));
         String mode = block.getMutation().getReturnType() == null ? "void" : block.getMutation().getReturnType();
@@ -106,8 +106,8 @@ public class MethodIfReturn<V> extends Method<V> {
                 helper.convertPhraseToExpr(left),
                 BlocklyType.get(mode),
                 helper.convertPhraseToExpr(right),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -91,7 +91,7 @@ public class TextPrintFunct<V> extends Function<V> {
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.TEXT, BlocklyType.STRING));
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return TextPrintFunct.make(params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return TextPrintFunct.make(params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

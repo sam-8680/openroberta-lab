@@ -82,14 +82,14 @@ public class LEDMatrixSetBrightnessAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        final String port = helper.extractField(fields, BlocklyConstants.ACTORPORT);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        final String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT);
 
         Phrase<V> brightness = helper.extractValue(values, new ExprParam(BlocklyConstants.BRIGHTNESS, BlocklyType.NUMBER_INT));
 
         return LEDMatrixSetBrightnessAction
-            .make(port, helper.convertPhraseToExpr(brightness), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(port, helper.convertPhraseToExpr(brightness), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -79,18 +79,18 @@ public final class WalkDistance<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
-        String walkDirection = helper.extractField(fields, BlocklyConstants.DIRECTION);
+        String walkDirection = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
         Phrase<V> walkDistance = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
 
         return WalkDistance
             .make(
                 DriveDirection.get(walkDirection),
                 helper.convertPhraseToExpr(walkDistance),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

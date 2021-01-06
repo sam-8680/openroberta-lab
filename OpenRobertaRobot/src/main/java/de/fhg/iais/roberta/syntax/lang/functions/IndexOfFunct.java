@@ -104,9 +104,9 @@ public class IndexOfFunct<V> extends Function<V> {
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.VALUE, BlocklyType.STRING));
         exprParams.add(new ExprParam(BlocklyConstants.FIND, BlocklyType.STRING));
-        String op = helper.getOperation(block, BlocklyConstants.END);
+        String op = AbstractJaxb2Ast.getOperation(block, BlocklyConstants.END);
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return IndexOfFunct.make(factory.getIndexLocation(op), params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return IndexOfFunct.make(factory.getIndexLocation(op), params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

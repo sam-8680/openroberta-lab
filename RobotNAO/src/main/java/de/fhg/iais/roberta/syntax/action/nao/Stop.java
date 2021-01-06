@@ -53,7 +53,7 @@ public final class Stop<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
-        return Stop.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return Stop.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

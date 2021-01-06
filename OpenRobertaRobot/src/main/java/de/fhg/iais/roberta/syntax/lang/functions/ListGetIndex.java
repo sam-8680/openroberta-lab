@@ -132,9 +132,9 @@ public class ListGetIndex<V> extends Function<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
         List<ExprParam> exprParams = new ArrayList<>();
-        String op = helper.extractField(fields, BlocklyConstants.MODE);
+        String op = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
         exprParams.add(new ExprParam(BlocklyConstants.VALUE, BlocklyType.STRING));
         if ( block.getMutation().isAt() ) {
             exprParams.add(new ExprParam(BlocklyConstants.AT, BlocklyType.NUMBER_INT));
@@ -144,11 +144,11 @@ public class ListGetIndex<V> extends Function<V> {
         return ListGetIndex
             .make(
                 factory.getListElementOpertaion(op),
-                factory.getIndexLocation(helper.extractField(fields, BlocklyConstants.WHERE)),
+                factory.getIndexLocation(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.WHERE)),
                 params,
                 dataType,
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

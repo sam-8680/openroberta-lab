@@ -107,20 +107,20 @@ public class ShowTextAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Value> values = helper.extractValues(block, (short) 3);
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 3);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.STRING));
         Phrase<V> col = helper.extractValue(values, new ExprParam(BlocklyConstants.COL, BlocklyType.NUMBER_INT));
         Phrase<V> row = helper.extractValue(values, new ExprParam(BlocklyConstants.ROW, BlocklyType.NUMBER_INT));
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT, BlocklyConstants.NO_PORT);
         return ShowTextAction
             .make(
                 helper.convertPhraseToExpr(msg),
                 helper.convertPhraseToExpr(col),
                 helper.convertPhraseToExpr(row),
                 factory.sanitizePort(port),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

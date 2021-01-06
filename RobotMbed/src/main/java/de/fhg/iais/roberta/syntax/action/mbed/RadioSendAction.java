@@ -74,14 +74,19 @@ public class RadioSendAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
         Phrase<V> message = helper.extractValue(values, new ExprParam(BlocklyConstants.MESSAGE, BlocklyType.STRING));
-        String power = helper.extractField(fields, BlocklyConstants.POWER);
-        String type = helper.extractField(fields, BlocklyConstants.TYPE);
+        String power = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.POWER);
+        String type = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
 
         return RadioSendAction
-            .make(helper.convertPhraseToExpr(message), BlocklyType.get(type), power, helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                helper.convertPhraseToExpr(message),
+                BlocklyType.get(type),
+                power,
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

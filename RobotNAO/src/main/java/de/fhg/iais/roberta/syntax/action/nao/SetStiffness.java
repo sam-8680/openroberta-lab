@@ -71,12 +71,13 @@ public final class SetStiffness<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
 
-        String bodyPart = helper.extractField(fields, BlocklyConstants.PART);
-        String onOff = helper.extractField(fields, BlocklyConstants.MODE);
+        String bodyPart = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.PART);
+        String onOff = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
 
-        return SetStiffness.make(BodyPart.get(bodyPart), WorkingState.get(onOff), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SetStiffness
+            .make(BodyPart.get(bodyPart), WorkingState.get(onOff), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

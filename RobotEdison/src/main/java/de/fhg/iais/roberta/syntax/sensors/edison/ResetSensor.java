@@ -19,10 +19,9 @@ import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IEdisonVisitor;
 
 /**
- * This class represents the "edisonSensors_sensor_reset" block which is used to reset the sensors of the Edison robot.
- * This is needed bcause some sensors always listen for new data and write it. This calls the sensor read() method and just doesn't save the value into a
- * variable.
- * This block should be used before every loop.
+ * This class represents the "edisonSensors_sensor_reset" block which is used to reset the sensors of the Edison robot. This is needed bcause some sensors
+ * always listen for new data and write it. This calls the sensor read() method and just doesn't save the value into a variable. This block should be used
+ * before every loop.
  *
  * @param <V>
  */
@@ -73,9 +72,9 @@ public class ResetSensor<V> extends Sensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String sensorName = helper.extractField(fields, BlocklyConstants.SENSOR);
-        return ResetSensor.make(sensorName, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String sensorName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSOR);
+        return ResetSensor.make(sensorName, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     /**
@@ -93,13 +92,7 @@ public class ResetSensor<V> extends Sensor<V> {
     /**
      * Getter for the sensor that will be resetted
      *
-     * @return the sensor to be resetted as a String
-     *         values will be one of the following:
-     *         - 'OBSTACLEDETECTOR'
-     *         - 'KEYPAD'
-     *         - 'SOUND'
-     *         - 'RCCODE'
-     *         - 'IRCODE'
+     * @return the sensor to be resetted as a String values will be one of the following: - 'OBSTACLEDETECTOR' - 'KEYPAD' - 'SOUND' - 'RCCODE' - 'IRCODE'
      */
     public String getSensor() {
         return this.sensor;

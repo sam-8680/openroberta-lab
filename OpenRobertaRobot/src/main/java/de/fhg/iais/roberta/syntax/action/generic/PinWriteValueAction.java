@@ -107,18 +107,18 @@ public class PinWriteValueAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        List<Value> values = helper.extractValues(block, (short) 1);
-        String port = helper.optField(fields, BlocklyConstants.ACTORPORT);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        String port = AbstractJaxb2Ast.optField(fields, BlocklyConstants.ACTORPORT);
         boolean actorPortAndMode;
         String pinvalue = null;
         if ( port != null ) {
             actorPortAndMode = true;
-            pinvalue = helper.extractField(fields, BlocklyConstants.MODE);
+            pinvalue = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
         } else {
             actorPortAndMode = false;
-            port = helper.extractField(fields, BlocklyConstants.PIN);
-            pinvalue = helper.extractField(fields, BlocklyConstants.VALUETYPE);
+            port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.PIN);
+            pinvalue = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.VALUETYPE);
         }
         Phrase<V> value = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NUMBER_INT));
         return PinWriteValueAction
@@ -127,8 +127,8 @@ public class PinWriteValueAction<V> extends Action<V> {
                 factory.sanitizePort(port),
                 helper.convertPhraseToExpr(value),
                 actorPortAndMode,
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

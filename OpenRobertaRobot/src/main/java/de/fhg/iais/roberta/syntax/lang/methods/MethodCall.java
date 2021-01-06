@@ -121,13 +121,14 @@ public class MethodCall<V> extends Method<V> {
         String methodName = block.getMutation().getName();
         List<Arg> arguments = block.getMutation().getArg();
         ExprList<V> parameters = helper.argumentsToExprList(arguments);
-        BlocklyType[] types = helper.argumentsToParametersType(arguments);
+        BlocklyType[] types = AbstractJaxb2Ast.argumentsToParametersType(arguments);
         int numberOfArguments = arguments.size();
-        List<Value> values = helper.extractValues(block, (short) numberOfArguments);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) numberOfArguments);
 
         ExprList<V> parametersValues = helper.valuesToExprList(values, types, numberOfArguments, BlocklyConstants.ARG);
 
-        return MethodCall.make(methodName, parameters, parametersValues, outputType, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MethodCall
+            .make(methodName, parameters, parametersValues, outputType, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

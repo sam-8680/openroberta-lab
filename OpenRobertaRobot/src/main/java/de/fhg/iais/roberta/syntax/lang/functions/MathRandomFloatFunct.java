@@ -69,7 +69,7 @@ public class MathRandomFloatFunct<V> extends Function<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return MathRandomFloatFunct.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathRandomFloatFunct.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

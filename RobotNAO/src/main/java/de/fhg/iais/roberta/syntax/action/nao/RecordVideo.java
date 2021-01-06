@@ -99,11 +99,11 @@ public final class RecordVideo<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        List<Value> values = helper.extractValues(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
 
-        String resolution = helper.extractField(fields, BlocklyConstants.RESOLUTION);
-        String camera = helper.extractField(fields, BlocklyConstants.CAMERA);
+        String resolution = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.RESOLUTION);
+        String camera = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CAMERA);
         Phrase<V> duration = helper.extractValue(values, new ExprParam(BlocklyConstants.DURATION, BlocklyType.NUMBER_INT));
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.FILENAME, BlocklyType.NUMBER_INT));
 
@@ -113,8 +113,8 @@ public final class RecordVideo<V> extends Action<V> {
                 Camera.get(camera),
                 helper.convertPhraseToExpr(duration),
                 helper.convertPhraseToExpr(msg),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -43,7 +43,7 @@ public class LookAtTest extends NaoAstTest {
     /*
     @Test
     public void astToBlock_XMLtoJAXBtoASTtoXML_ReturnsSameXML() throws Exception {
-    
+
         UnitTestHelper.checkProgramReverseTransformation(testFactory, "/action/lookAt_robot.xml");
     }*/
 }

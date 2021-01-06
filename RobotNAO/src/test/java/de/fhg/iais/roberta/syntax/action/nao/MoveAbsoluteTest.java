@@ -138,10 +138,10 @@ public class MoveAbsoluteTest extends NaoAstTest {
     @Test
     public void make_ByDefault_ReturnInstanceOfMoveRightHipPitchClass() throws Exception {
         String expectedResult = "BlockAST [project=[[Location [x=138, y=163], " + "MainTask [], " + "MoveJoint [RHIPPITCH, ABSOLUTE, NumConst [10]]]]]";
-    
+
         UnitTestHelper.checkProgramAstEquality(testFactory, expectedResult, "/action/moveRightHipPitchAbsoluteTen.xml");
-    
-    
+
+
     }*/
 
     @Test
@@ -218,7 +218,7 @@ public class MoveAbsoluteTest extends NaoAstTest {
     /*
     @Test
     public void astToBlock_XMLtoJAXBtoASTtoXML_ReturnsSameXML() throws Exception {
-    
+
         UnitTestHelper.checkProgramReverseTransformation(testFactory, "/action/moveHeadYawAbsoluteTen.xml");
     }*/
 }

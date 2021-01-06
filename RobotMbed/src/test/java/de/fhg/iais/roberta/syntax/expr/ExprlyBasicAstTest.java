@@ -413,12 +413,18 @@ public class ExprlyBasicAstTest extends AstTest {
         UsedHardwareBean usedHardwareBean = new UsedHardwareBean.Builder().build();
         CodeGeneratorSetupBean codeGeneratorSetupBeanCpp = new CodeGeneratorSetupBean.Builder().setHelperMethodFile(helperFile).setFileExtension("cpp").build();
         CodeGeneratorSetupBean codeGeneratorSetupBeanPy = new CodeGeneratorSetupBean.Builder().setHelperMethodFile(helperFile).setFileExtension("py").build();
-        ImmutableClassToInstanceMap<IProjectBean> beansCpp = ImmutableClassToInstanceMap.<IProjectBean>builder().put(UsedHardwareBean.class, usedHardwareBean).put(
-            CodeGeneratorSetupBean.class,
-            codeGeneratorSetupBeanCpp).build();
-        ImmutableClassToInstanceMap<IProjectBean> beansPy = ImmutableClassToInstanceMap.<IProjectBean>builder().put(UsedHardwareBean.class, usedHardwareBean).put(
-            CodeGeneratorSetupBean.class,
-            codeGeneratorSetupBeanPy).build();
+        ImmutableClassToInstanceMap<IProjectBean> beansCpp =
+            ImmutableClassToInstanceMap
+                .<IProjectBean> builder()
+                .put(UsedHardwareBean.class, usedHardwareBean)
+                .put(CodeGeneratorSetupBean.class, codeGeneratorSetupBeanCpp)
+                .build();
+        ImmutableClassToInstanceMap<IProjectBean> beansPy =
+            ImmutableClassToInstanceMap
+                .<IProjectBean> builder()
+                .put(UsedHardwareBean.class, usedHardwareBean)
+                .put(CodeGeneratorSetupBean.class, codeGeneratorSetupBeanPy)
+                .build();
         List<Phrase<Void>> addInList = new ArrayList<>();
         addInList.add(expr);
         List<List<Phrase<Void>>> addInListInList = new ArrayList<>();

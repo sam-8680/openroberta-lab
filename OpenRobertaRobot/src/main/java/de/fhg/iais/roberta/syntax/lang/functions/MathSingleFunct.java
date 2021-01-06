@@ -98,14 +98,14 @@ public class MathSingleFunct<V> extends Function<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        if ( helper.getOperation(block, BlocklyConstants.OP).equals(BlocklyConstants.NEG) ) {
+        if ( AbstractJaxb2Ast.getOperation(block, BlocklyConstants.OP).equals(BlocklyConstants.NEG) ) {
             return helper.blockToUnaryExpr(block, new ExprParam(BlocklyConstants.NUM, BlocklyType.NUMBER_INT), BlocklyConstants.OP);
         }
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.NUM, BlocklyType.NUMBER_INT));
-        String op = helper.getOperation(block, BlocklyConstants.OP);
+        String op = AbstractJaxb2Ast.getOperation(block, BlocklyConstants.OP);
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return MathSingleFunct.make(FunctionNames.get(op), params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathSingleFunct.make(FunctionNames.get(op), params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

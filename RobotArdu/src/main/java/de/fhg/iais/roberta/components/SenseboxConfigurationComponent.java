@@ -1,4 +1,5 @@
 package de.fhg.iais.roberta.components;
+
 import java.math.BigInteger;
 import java.util.Map;
 
@@ -9,8 +10,8 @@ import de.fhg.iais.roberta.syntax.BlocklyComment;
 import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
 
 /**
- * Just to override the name of the "usedDefinedPortName" field and add the mutation to the generic {@link ConfigurationComponent}.
- * TODO should be removed if possible
+ * Just to override the name of the "usedDefinedPortName" field and add the mutation to the generic {@link ConfigurationComponent}. TODO should be removed if
+ * possible
  */
 public final class SenseboxConfigurationComponent extends ConfigurationComponent {
     private SenseboxConfigurationComponent(

@@ -72,27 +72,27 @@ public final class MotorOnAction<V> extends MoveAction<V> {
             || block.getType().equals(BlocklyConstants.SIM_MOTOR_ON)
             || block.getType().equals(BlocklyConstants.ROB_ACTIONS_MOTOR_ON_FOR_ARDU)
             || block.getType().equals(BlocklyConstants.ROB_ACTIONS_MOTOR_ON_FOR_MBED) ) {
-            fields = helper.extractFields(block, (short) 1);
-            values = helper.extractValues(block, (short) 1);
-            port = helper.extractField(fields, BlocklyConstants.MOTORPORT);
+            fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+            values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+            port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
             Phrase<V> expr = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
             mp = new MotionParam.Builder<V>().speed(helper.convertPhraseToExpr(expr)).build();
         } else {
-            fields = helper.extractFields(block, (short) 2);
-            values = helper.extractValues(block, (short) 2);
-            port = helper.extractField(fields, BlocklyConstants.MOTORPORT);
+            fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+            values = AbstractJaxb2Ast.extractValues(block, (short) 2);
+            port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
             Phrase<V> left = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
             Phrase<V> right = helper.extractValue(values, new ExprParam(BlocklyConstants.VALUE, BlocklyType.NUMBER_INT));
             MotorDuration<V> md;
             if ( fields.size() == 1 ) {
                 md = new MotorDuration<>(null, helper.convertPhraseToExpr(right));
             } else {
-                String mode = helper.extractField(fields, BlocklyConstants.MOTORROTATION);
+                String mode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORROTATION);
                 md = new MotorDuration<>(factory.getMotorMoveMode(mode), helper.convertPhraseToExpr(right));
             }
             mp = new MotionParam.Builder<V>().speed(helper.convertPhraseToExpr(left)).duration(md).build();
         }
-        return MotorOnAction.make(port, mp, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MotorOnAction.make(port, mp, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     /**

@@ -47,6 +47,7 @@ public class StmtTextComment<V> extends Stmt<V> {
         return this.textComment;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         appendNewLine(sb, 0, "StmtTextComment [" + this.textComment + "]");
@@ -66,9 +67,9 @@ public class StmtTextComment<V> extends Stmt<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String comment = helper.extractField(fields, BlocklyConstants.TEXT);
-        return StmtTextComment.make(comment, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String comment = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TEXT);
+        return StmtTextComment.make(comment, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

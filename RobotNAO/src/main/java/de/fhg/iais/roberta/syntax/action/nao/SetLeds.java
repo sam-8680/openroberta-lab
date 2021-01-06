@@ -75,14 +75,15 @@ public final class SetLeds<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
         Phrase<V> Color = helper.extractValue(values, new ExprParam(BlocklyConstants.COLOR, BlocklyType.COLOR));
 
-        String leds = helper.extractField(fields, BlocklyConstants.LED);
+        String leds = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.LED);
 
-        return SetLeds.make(Led.get(leds), helper.convertPhraseToExpr(Color), helper.extractBlockProperties(block), helper.extractComment(block));
+        return SetLeds
+            .make(Led.get(leds), helper.convertPhraseToExpr(Color), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

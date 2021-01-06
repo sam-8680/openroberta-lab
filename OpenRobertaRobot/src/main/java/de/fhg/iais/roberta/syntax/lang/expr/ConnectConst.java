@@ -89,11 +89,11 @@ public class ConnectConst<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
         Data data = block.getData();
         String datum = data.getValue();
-        String field = helper.extractField(fields, BlocklyConstants.CONNECTION);
-        return ConnectConst.make(datum, field, helper.extractBlockProperties(block), helper.extractComment(block));
+        String field = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CONNECTION);
+        return ConnectConst.make(datum, field, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

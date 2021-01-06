@@ -92,7 +92,7 @@ public class MathRandomIntFunct<V> extends Function<V> {
         exprParams.add(new ExprParam(BlocklyConstants.FROM, BlocklyType.NUMBER_INT));
         exprParams.add(new ExprParam(BlocklyConstants.TO, BlocklyType.NUMBER_INT));
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return MathRandomIntFunct.make(params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathRandomIntFunct.make(params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

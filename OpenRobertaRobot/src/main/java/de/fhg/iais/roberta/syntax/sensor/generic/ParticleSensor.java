@@ -36,6 +36,6 @@ public class ParticleSensor<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return ParticleSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return ParticleSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 }

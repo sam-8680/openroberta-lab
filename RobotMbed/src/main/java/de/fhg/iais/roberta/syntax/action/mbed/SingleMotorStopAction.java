@@ -73,9 +73,10 @@ public class SingleMotorStopAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String modeName = helper.extractField(fields, BlocklyConstants.MODE);
-        return SingleMotorStopAction.make(factory.getMotorStopMode(modeName), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String modeName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
+        return SingleMotorStopAction
+            .make(factory.getMotorStopMode(modeName), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

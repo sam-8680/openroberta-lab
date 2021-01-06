@@ -100,9 +100,9 @@ public class MathOnListFunct<V> extends Function<V> {
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.LIST, BlocklyType.ARRAY));
-        String op = helper.getOperation(block, BlocklyConstants.OP);
+        String op = AbstractJaxb2Ast.getOperation(block, BlocklyConstants.OP);
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return MathOnListFunct.make(FunctionNames.get(op), params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathOnListFunct.make(FunctionNames.get(op), params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -1,4 +1,5 @@
 package de.fhg.iais.roberta.syntax.action.mbed;
+
 import java.util.List;
 
 import de.fhg.iais.roberta.blockly.generated.Block;
@@ -48,11 +49,11 @@ public final class MotionKitDualSetAction<V> extends Action<V> {
     }
 
     public String getDirectionLeft() {
-        return directionLeft;
+        return this.directionLeft;
     }
 
     public String getDirectionRight() {
-        return directionRight;
+        return this.directionRight;
     }
 
     @Override
@@ -74,10 +75,15 @@ public final class MotionKitDualSetAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String directionL = helper.extractField(fields, BlocklyConstants.DIRECTION_LEFT);
-        String directionR = helper.extractField(fields, BlocklyConstants.DIRECTION_RIGHT);
-        return MotionKitDualSetAction.make(factory.getMode(directionL), factory.getMode(directionR), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String directionL = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_LEFT);
+        String directionR = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_RIGHT);
+        return MotionKitDualSetAction
+            .make(
+                factory.getMode(directionL),
+                factory.getMode(directionR),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

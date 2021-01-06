@@ -79,15 +79,20 @@ public class MotorStopAction<V> extends MoveAction<V> {
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        String portName = helper.extractField(fields, BlocklyConstants.MOTORPORT);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
         if ( fields.size() > 1 ) {
-            String modeName = helper.extractField(fields, BlocklyConstants.MODE);
+            String modeName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
             return MotorStopAction
-                .make(factory.sanitizePort(portName), factory.getMotorStopMode(modeName), helper.extractBlockProperties(block), helper.extractComment(block));
+                .make(
+                    factory.sanitizePort(portName),
+                    factory.getMotorStopMode(modeName),
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block));
 
         }
-        return MotorStopAction.make(factory.sanitizePort(portName), null, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MotorStopAction
+            .make(factory.sanitizePort(portName), null, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
 
     }
 

@@ -72,29 +72,29 @@ public class BluetoothReceiveAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
-        List<Field> fields = helper.extractFields(block, (short) 3);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 3);
         Phrase<V> bluetoothRecieveConnection = helper.extractValue(values, new ExprParam(BlocklyConstants.CONNECTION, BlocklyType.NULL));
         if ( fields.size() == 3 ) {
-            String bluetoothRecieveChannel = helper.extractField(fields, BlocklyConstants.CHANNEL);
-            String bluetoothRecieveDataType = helper.extractField(fields, BlocklyConstants.TYPE);
+            String bluetoothRecieveChannel = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CHANNEL);
+            String bluetoothRecieveDataType = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
             return BluetoothReceiveAction
                 .make(
                     helper.convertPhraseToExpr(bluetoothRecieveConnection),
                     bluetoothRecieveChannel,
                     bluetoothRecieveDataType,
-                    helper.extractBlockProperties(block),
-                    helper.extractComment(block));
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block));
         } else {
             String bluetoothReceiveChannel = "-1";
-            String bluetoothRecieveDataType = helper.extractField(fields, BlocklyConstants.TYPE);
+            String bluetoothRecieveDataType = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
             return BluetoothReceiveAction
                 .make(
                     helper.convertPhraseToExpr(bluetoothRecieveConnection),
                     bluetoothReceiveChannel,
                     bluetoothRecieveDataType,
-                    helper.extractBlockProperties(block),
-                    helper.extractComment(block));
+                    AbstractJaxb2Ast.extractBlockProperties(block),
+                    AbstractJaxb2Ast.extractComment(block));
         }
     }
 

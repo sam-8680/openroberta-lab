@@ -23,32 +23,32 @@ public class Prop2MapTest {
     @Test
     public void testOk() {
         LOG.info("running Prop2MapTest");
-        Prop2Map.fillKey2text(key2text, "/prop2map/ok.txt");
-        Assert.assertTrue(key2text.size() == 3);
-        Assert.assertNotNull(key2text.get("PROP_1"));
-        Assert.assertNotNull(key2text.get("PROP_2"));
-        Assert.assertNotNull(key2text.get("PROP_3"));
-        Assert.assertEquals("ein Text für Properties 3", key2text.get("PROP_3").replaceAll("\n", " "));
+        Prop2Map.fillKey2text(this.key2text, "/prop2map/ok.txt");
+        Assert.assertTrue(this.key2text.size() == 3);
+        Assert.assertNotNull(this.key2text.get("PROP_1"));
+        Assert.assertNotNull(this.key2text.get("PROP_2"));
+        Assert.assertNotNull(this.key2text.get("PROP_3"));
+        Assert.assertEquals("ein Text für Properties 3", this.key2text.get("PROP_3").replaceAll("\n", " "));
     }
 
     @Test
     public void testStructureInvalid1() {
-        thrown.expect(DbcException.class);
-        thrown.expectMessage("Last entry has no terminating ; in");
-        Prop2Map.fillKey2text(key2text, "/prop2map/err1.txt");
+        this.thrown.expect(DbcException.class);
+        this.thrown.expectMessage("Last entry has no terminating ; in");
+        Prop2Map.fillKey2text(this.key2text, "/prop2map/err1.txt");
     }
 
     @Test
     public void testStructureInvalid2() {
-        thrown.expect(DbcException.class);
-        thrown.expectMessage("Invalid data in resource");
-        Prop2Map.fillKey2text(key2text, "/prop2map/err2.txt");
+        this.thrown.expect(DbcException.class);
+        this.thrown.expectMessage("Invalid data in resource");
+        Prop2Map.fillKey2text(this.key2text, "/prop2map/err2.txt");
     }
 
     @Test
     public void testStructureInvalid3() {
-        thrown.expect(DbcException.class);
-        thrown.expectMessage("Duplicate key in resource");
-        Prop2Map.fillKey2text(key2text, "/prop2map/err3.txt");
+        this.thrown.expect(DbcException.class);
+        this.thrown.expectMessage("Duplicate key in resource");
+        Prop2Map.fillKey2text(this.key2text, "/prop2map/err3.txt");
     }
 }

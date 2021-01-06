@@ -52,7 +52,7 @@ public class RecallAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return RecallAction.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return RecallAction.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

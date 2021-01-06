@@ -75,7 +75,7 @@ public class NullConst<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return NullConst.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return NullConst.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

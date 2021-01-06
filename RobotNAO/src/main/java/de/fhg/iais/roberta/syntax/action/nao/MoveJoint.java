@@ -94,11 +94,11 @@ public final class MoveJoint<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
-        String joint = helper.extractField(fields, BlocklyConstants.JOINT);
-        String relativeAbsolute = helper.extractField(fields, BlocklyConstants.MODE);
+        String joint = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.JOINT);
+        String relativeAbsolute = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
 
         Phrase<V> walkDistance = helper.extractValue(values, new ExprParam(BlocklyConstants.POWER, BlocklyType.NUMBER_INT));
 
@@ -107,8 +107,8 @@ public final class MoveJoint<V> extends Action<V> {
                 Joint.get(joint),
                 RelativeAbsolute.get(relativeAbsolute),
                 helper.convertPhraseToExpr(walkDistance),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -95,14 +95,14 @@ public class ListCreate<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String filename = helper.extractField(fields, BlocklyConstants.LIST_TYPE);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String filename = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.LIST_TYPE);
         return ListCreate
             .make(
                 BlocklyType.get(filename),
                 helper.blockToExprList(block, BlocklyType.ARRAY),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

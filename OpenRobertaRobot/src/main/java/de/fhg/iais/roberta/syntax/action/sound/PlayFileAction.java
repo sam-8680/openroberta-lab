@@ -69,9 +69,9 @@ public class PlayFileAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String filename = helper.extractField(fields, BlocklyConstants.FILE);
-        return PlayFileAction.make(filename, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String filename = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.FILE);
+        return PlayFileAction.make(filename, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

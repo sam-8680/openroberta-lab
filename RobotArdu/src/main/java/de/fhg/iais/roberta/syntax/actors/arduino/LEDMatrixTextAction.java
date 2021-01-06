@@ -19,7 +19,6 @@ import de.fhg.iais.roberta.typecheck.BlocklyType;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.util.dbc.DbcException;
 import de.fhg.iais.roberta.visitor.IVisitor;
-import de.fhg.iais.roberta.visitor.hardware.IArduinoVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IMbotVisitor;
 
 /**
@@ -52,7 +51,7 @@ public class LEDMatrixTextAction<V> extends Action<V> {
     private static <V> LEDMatrixTextAction<V> make(String port, Expr<V> msg, BlocklyBlockProperties properties, BlocklyComment comment) {
         return new LEDMatrixTextAction<>(port, msg, properties, comment);
     }
-    
+
     public String getPort() {
         return this.port;
     }
@@ -82,24 +81,25 @@ public class LEDMatrixTextAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
-        List<Field> fields = helper.extractFields(block, (short) 2);
-        final String port = helper.extractField(fields, BlocklyConstants.ACTORPORT);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+        final String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT);
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.STRING));
         String displayMode = "";
         try {
-            displayMode = helper.extractField(fields, BlocklyConstants.TYPE);
+            displayMode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
         } catch ( DbcException e ) {
             displayMode = "TEXT";
         }
-        return LEDMatrixTextAction.make(port, helper.convertPhraseToExpr(msg), helper.extractBlockProperties(block), helper.extractComment(block));
+        return LEDMatrixTextAction
+            .make(port, helper.convertPhraseToExpr(msg), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
         Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.ACTORPORT, this.port);       
+        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.ACTORPORT, this.port);
         Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.OUT, this.msg);
 
         return jaxbDestination;

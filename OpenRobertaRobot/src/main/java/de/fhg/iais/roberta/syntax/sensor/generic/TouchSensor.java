@@ -53,7 +53,7 @@ public class TouchSensor<V> extends ExternalSensor<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         SensorMetaDataBean sensorData = extractPortAndModeAndSlot(block, helper);
-        return TouchSensor.make(sensorData, helper.extractBlockProperties(block), helper.extractComment(block));
+        return TouchSensor.make(sensorData, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
 }

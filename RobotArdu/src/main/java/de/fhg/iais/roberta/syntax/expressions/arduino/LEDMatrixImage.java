@@ -95,14 +95,14 @@ public class LEDMatrixImage<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) (X*Y));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) (X * Y));
         String[][] image = new String[X][Y];
         for ( int i = 0; i < X; i++ ) {
             for ( int j = 0; j < Y; j++ ) {
-                image[i][j] = helper.extractField(fields, "P" + i + (Y-1-j));
+                image[i][j] = AbstractJaxb2Ast.extractField(fields, "P" + i + (Y - 1 - j));
             }
         }
-        return LEDMatrixImage.make(image, helper.extractBlockProperties(block), helper.extractComment(block));
+        return LEDMatrixImage.make(image, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

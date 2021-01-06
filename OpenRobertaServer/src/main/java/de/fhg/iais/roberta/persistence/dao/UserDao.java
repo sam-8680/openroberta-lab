@@ -21,8 +21,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     /**
-     * Persists a user in the database.
-     * Currently not used for user group members, because user group members can not be changed.
+     * Persists a user in the database. Currently not used for user group members, because user group members can not be changed.
      *
      * @param account
      * @param password

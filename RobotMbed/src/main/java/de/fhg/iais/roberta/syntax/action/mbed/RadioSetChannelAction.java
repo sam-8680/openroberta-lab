@@ -60,10 +60,11 @@ public class RadioSetChannelAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> channel = helper.extractValue(values, new ExprParam(BlocklyConstants.CONNECTION, BlocklyType.NUMBER_INT));
 
-        return RadioSetChannelAction.make(helper.convertPhraseToExpr(channel), helper.extractBlockProperties(block), helper.extractComment(block));
+        return RadioSetChannelAction
+            .make(helper.convertPhraseToExpr(channel), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

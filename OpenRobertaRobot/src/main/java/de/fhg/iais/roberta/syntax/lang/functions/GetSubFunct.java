@@ -118,10 +118,10 @@ public class GetSubFunct<V> extends Function<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
         List<IMode> strParams = new ArrayList<IMode>();
-        strParams.add(factory.getIndexLocation(helper.extractField(fields, BlocklyConstants.WHERE1)));
-        strParams.add(factory.getIndexLocation(helper.extractField(fields, BlocklyConstants.WHERE2)));
+        strParams.add(factory.getIndexLocation(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.WHERE1)));
+        strParams.add(factory.getIndexLocation(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.WHERE2)));
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.LIST, BlocklyType.STRING));
         if ( block.getMutation().isAt1() ) {
@@ -131,7 +131,8 @@ public class GetSubFunct<V> extends Function<V> {
             exprParams.add(new ExprParam(BlocklyConstants.AT2, BlocklyType.NUMBER_INT));
         }
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return GetSubFunct.make(FunctionNames.GET_SUBLIST, strParams, params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return GetSubFunct
+            .make(FunctionNames.GET_SUBLIST, strParams, params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

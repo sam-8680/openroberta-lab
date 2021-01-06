@@ -90,9 +90,10 @@ public class ImageInvertFunction<V> extends Function<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
         Phrase<V> image = helper.extractValue(values, new ExprParam(BlocklyConstants.VAR, BlocklyType.PREDEFINED_IMAGE));
-        return ImageInvertFunction.make(helper.convertPhraseToExpr(image), helper.extractBlockProperties(block), helper.extractComment(block));
+        return ImageInvertFunction
+            .make(helper.convertPhraseToExpr(image), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

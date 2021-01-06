@@ -96,7 +96,7 @@ public class ColorConst<V> extends Expr<V> {
 
     @Override
     public String toString() {
-        return "ColorConst [" + hexValue + "]";
+        return "ColorConst [" + this.hexValue + "]";
     }
 
     @Override
@@ -113,9 +113,9 @@ public class ColorConst<V> extends Expr<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String hexValue = helper.extractField(fields, BlocklyConstants.COLOUR);
-        return ColorConst.make(hexValue, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String hexValue = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.COLOUR);
+        return ColorConst.make(hexValue, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

@@ -14,8 +14,7 @@ import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
 
 /**
  * This class represents the <b>mbedActions_fourdigitdisplay_show</b> block from Blockly into the AST (abstract syntax tree). Object from this class will
- * generate code
- * for showing numbers on the Grove 4-Digit Display.<br>
+ * generate code for showing numbers on the Grove 4-Digit Display.<br>
  * <br>
  * To create an instance from this class use the method {@link #make(Expr, BlocklyBlockProperties, BlocklyComment)}.<br>
  * <br>
@@ -57,7 +56,7 @@ public class FourDigitDisplayClearAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        return FourDigitDisplayClearAction.make(helper.extractBlockProperties(block), helper.extractComment(block));
+        return FourDigitDisplayClearAction.make(AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

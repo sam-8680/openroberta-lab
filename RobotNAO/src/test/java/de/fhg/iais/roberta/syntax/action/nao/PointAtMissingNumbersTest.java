@@ -43,7 +43,7 @@ public class PointAtMissingNumbersTest extends NaoAstTest {
     /*
     @Test
     public void astToBlock_XMLtoJAXBtoASTtoXML_ReturnsSameXML() throws Exception {
-    
+
         UnitTestHelper.checkProgramReverseTransformation(testFactory, "/action/pointAt_robot.xml");
     }*/
 }

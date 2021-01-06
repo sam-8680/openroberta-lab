@@ -100,7 +100,7 @@ public class MathNumPropFunct<V> extends Function<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         boolean divisorInput = block.getMutation().isDivisorInput();
-        String op = helper.extractOperation(block, BlocklyConstants.PROPERTY);
+        String op = AbstractJaxb2Ast.extractOperation(block, BlocklyConstants.PROPERTY);
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.NUMBER_TO_CHECK, BlocklyType.NUMBER_INT));
 
@@ -109,7 +109,7 @@ public class MathNumPropFunct<V> extends Function<V> {
             exprParams.add(new ExprParam(BlocklyConstants.DIVISOR, BlocklyType.NUMBER_INT));
         }
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return MathNumPropFunct.make(FunctionNames.get(op), params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return MathNumPropFunct.make(FunctionNames.get(op), params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

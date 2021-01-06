@@ -101,7 +101,8 @@ public class LengthOfIsEmptyFunct<V> extends Function<V> {
         List<ExprParam> exprParams = new ArrayList<ExprParam>();
         exprParams.add(new ExprParam(BlocklyConstants.VALUE, BlocklyType.STRING));
         List<Expr<V>> params = helper.extractExprParameters(block, exprParams);
-        return LengthOfIsEmptyFunct.make(FunctionNames.get(block.getType()), params, helper.extractBlockProperties(block), helper.extractComment(block));
+        return LengthOfIsEmptyFunct
+            .make(FunctionNames.get(block.getType()), params, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

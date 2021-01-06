@@ -67,9 +67,9 @@ public class LedOffAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String side = helper.extractField(fields, BlocklyConstants.LED + BlocklyConstants.SIDE);
-        return LedOffAction.make(side, helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String side = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.LED + BlocklyConstants.SIDE);
+        return LedOffAction.make(side, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

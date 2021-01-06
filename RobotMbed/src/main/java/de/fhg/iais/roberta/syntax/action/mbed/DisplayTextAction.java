@@ -83,17 +83,21 @@ public class DisplayTextAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
-        List<Field> fields = helper.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.OUT, BlocklyType.STRING));
         String displaMode = "";
         try {
-            displaMode = helper.extractField(fields, BlocklyConstants.TYPE);
+            displaMode = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE);
         } catch ( DbcException e ) {
             displaMode = "TEXT";
         }
         return DisplayTextAction
-            .make(DisplayTextMode.get(displaMode), helper.convertPhraseToExpr(msg), helper.extractBlockProperties(block), helper.extractComment(block));
+            .make(
+                DisplayTextMode.get(displaMode),
+                helper.convertPhraseToExpr(msg),
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

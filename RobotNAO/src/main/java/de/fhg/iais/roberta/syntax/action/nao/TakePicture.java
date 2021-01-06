@@ -80,13 +80,14 @@ public final class TakePicture<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
-        String camera = helper.extractField(fields, BlocklyConstants.CAMERA);
+        String camera = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CAMERA);
         Phrase<V> msg = helper.extractValue(values, new ExprParam(BlocklyConstants.FILENAME, BlocklyType.NUMBER_INT));
 
-        return TakePicture.make(Camera.get(camera), helper.convertPhraseToExpr(msg), helper.extractBlockProperties(block), helper.extractComment(block));
+        return TakePicture
+            .make(Camera.get(camera), helper.convertPhraseToExpr(msg), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

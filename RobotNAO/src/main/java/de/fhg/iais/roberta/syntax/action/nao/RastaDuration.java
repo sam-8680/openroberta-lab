@@ -68,11 +68,11 @@ public final class RastaDuration<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Value> values = helper.extractValues(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 1);
 
         Phrase<V> duration = helper.extractValue(values, new ExprParam(BlocklyConstants.DURATION, BlocklyType.NUMBER_INT));
 
-        return RastaDuration.make(helper.convertPhraseToExpr(duration), helper.extractBlockProperties(block), helper.extractComment(block));
+        return RastaDuration.make(helper.convertPhraseToExpr(duration), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

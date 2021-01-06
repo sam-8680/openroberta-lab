@@ -124,9 +124,9 @@ public class MathConst<V> extends Expr<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        String field = helper.extractField(fields, BlocklyConstants.CONSTANT);
-        return MathConst.make(MathConst.Const.get(field), helper.extractBlockProperties(block), helper.extractComment(block));
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        String field = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.CONSTANT);
+        return MathConst.make(MathConst.Const.get(field), AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
     }
 
     @Override

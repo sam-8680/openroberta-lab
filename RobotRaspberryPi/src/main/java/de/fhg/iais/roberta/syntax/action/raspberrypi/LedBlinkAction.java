@@ -90,19 +90,19 @@ public class LedBlinkAction<V> extends Action<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        List<Field> fields = helper.extractFields(block, (short) 1);
-        List<Value> values = helper.extractValues(block, (short) 2);
+        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+        List<Value> values = AbstractJaxb2Ast.extractValues(block, (short) 2);
 
         Phrase<V> frequency = helper.extractValue(values, new ExprParam(BlocklyConstants.FREQUENCY, BlocklyType.NUMBER));
         Phrase<V> duration = helper.extractValue(values, new ExprParam(BlocklyConstants.DURATION, BlocklyType.NUMBER_INT));
-        String port = helper.extractField(fields, BlocklyConstants.ACTORPORT);
+        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.ACTORPORT);
         return LedBlinkAction
             .make(
                 port,
                 helper.convertPhraseToExpr(frequency),
                 helper.convertPhraseToExpr(duration),
-                helper.extractBlockProperties(block),
-                helper.extractComment(block));
+                AbstractJaxb2Ast.extractBlockProperties(block),
+                AbstractJaxb2Ast.extractComment(block));
 
     }
 
