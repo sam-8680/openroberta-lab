@@ -95,8 +95,16 @@ public class UserDao extends AbstractDao<User> {
         return getOneOrNoUser(hql);
     }
 
-    @Deprecated
-    public List<User> loadUserList(String sortBy, int offset, String tagFilter) {
+    /**
+     * load a list of users filtered by a tag (looked up in column "tag"), sorted by a column given
+     * @param tagFilter filter to restrict result list to users with this tag
+     * @param sortBy sort column
+     * @param offset the index in the result list for the first user returned to the caller
+     * @param maxResults the maximal number of users to be returned
+     * 
+     * @return list of filtered users sorted ascending
+     */
+    public List<User> loadUserList(String tagFilter, String sortBy, int offset, int maxResults) {
         Query hql = this.session.createQuery("from User where tags=:tag order by " + sortBy);
         hql.setFirstResult(offset);
         hql.setMaxResults(10);

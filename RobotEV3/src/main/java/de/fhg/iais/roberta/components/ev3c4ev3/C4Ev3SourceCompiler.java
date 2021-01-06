@@ -1,17 +1,12 @@
 package de.fhg.iais.roberta.components.ev3c4ev3;
 
 import org.apache.commons.lang3.SystemUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.fhg.iais.roberta.util.Pair;
 import de.fhg.iais.roberta.util.Util;
 import de.fhg.iais.roberta.util.dbc.DbcException;
 
 public class C4Ev3SourceCompiler {
-
-    private static final Logger LOG = LoggerFactory.getLogger(C4Ev3SourceCompiler.class);
-
     private final String compilerResourcesDir;
     private final String compilerExecutableFileName;
     private final String staticLibraryFolderName;

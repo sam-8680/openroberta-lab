@@ -711,6 +711,8 @@ public final class Ev3JavaVisitor extends AbstractJavaVisitor implements IEv3Vis
                 this.sb.append("(int) ");
                 getSubFunct.getParam().get(1).accept(this);
                 break;
+            case RANDOM:
+                throw new DbcException("RANDOM is invalid (has been removed)");
         }
 
         this.sb.append(", ");
@@ -742,6 +744,8 @@ public final class Ev3JavaVisitor extends AbstractJavaVisitor implements IEv3Vis
                     getSubFunct.getParam().get(1).accept(this);
                 }
                 break;
+            case RANDOM:
+                throw new DbcException("RANDOM is invalid (has been removed)");
         }
         this.sb.append("))");
         return null;

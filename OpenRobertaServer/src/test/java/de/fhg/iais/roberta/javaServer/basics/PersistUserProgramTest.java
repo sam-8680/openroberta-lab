@@ -61,7 +61,7 @@ public class PersistUserProgramTest {
                 hSession.commit();
             }
         }
-        List<User> userList = userDao.loadUserList("created", 0, "rwth");
+        List<User> userList = userDao.loadUserList("rwth", "created", 0, 10);
         Assert.assertTrue(userList.size() == 10);
 
         //Create one program per user

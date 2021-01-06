@@ -7,7 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class EvalExpr<V> extends Expr<V> {
      */
     public static <V> EvalExpr<V> make(String expr, String type, BlocklyBlockProperties properties, BlocklyComment comment) throws Exception {
         final List<NepoInfo> annotations = new ArrayList<>();
-        Expr<V> astOfExpr = expr2AST(expr, annotations);
+        Expr<V> astOfExpr = EvalExpr.expr2AST(expr, annotations);
         astOfExpr.setReadOnly();
         EvalExpr<V> evalExpr = new EvalExpr<>(expr, astOfExpr, type, properties, comment);
         for ( NepoInfo nepoInfo : annotations ) {
@@ -175,7 +176,7 @@ public class EvalExpr<V> extends Expr<V> {
      * Function to create an abstract syntax tree from an expression, that has been submitted as a string
      */
     private static <V> Expr<V> expr2AST(String expr, List<NepoInfo> annotations) throws Exception {
-        ExprlyParser parser = mkParser(expr);
+        ExprlyParser parser = EvalExpr.mkParser(expr);
         EvalExprErrorListener err = new EvalExprErrorListener();
         parser.removeErrorListeners();
         parser.addErrorListener(err);
@@ -199,7 +200,7 @@ public class EvalExpr<V> extends Expr<V> {
      */
     private static ExprlyParser mkParser(String expr) throws UnsupportedEncodingException, IOException {
         InputStream inputStream = new ByteArrayInputStream(expr.getBytes("UTF-8"));
-        ANTLRInputStream input = new ANTLRInputStream(inputStream);
+        CharStream input = CharStreams.fromStream(inputStream);
         ExprlyLexer lexer = new ExprlyLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ExprlyParser parser = new ExprlyParser(tokens);
