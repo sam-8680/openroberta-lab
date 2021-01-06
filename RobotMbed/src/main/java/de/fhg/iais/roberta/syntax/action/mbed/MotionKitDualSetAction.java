@@ -13,7 +13,8 @@ import de.fhg.iais.roberta.syntax.BlocklyConstants;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.action.Action;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
@@ -75,23 +76,23 @@ public final class MotionKitDualSetAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
-        String directionL = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_LEFT);
-        String directionR = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_RIGHT);
+        List<Field> fields = Jaxb2Ast.extractFields(block, (short) 2);
+        String directionL = Jaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_LEFT);
+        String directionR = Jaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION_RIGHT);
         return MotionKitDualSetAction
             .make(
                 factory.getMode(directionL),
                 factory.getMode(directionR),
-                AbstractJaxb2Ast.extractBlockProperties(block),
-                AbstractJaxb2Ast.extractComment(block));
+                Jaxb2Ast.extractBlockProperties(block),
+                Jaxb2Ast.extractComment(block));
     }
 
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.DIRECTION_LEFT, this.directionLeft);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.DIRECTION_RIGHT, this.directionRight);
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.DIRECTION_LEFT, this.directionLeft);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.DIRECTION_RIGHT, this.directionRight);
         return jaxbDestination;
     }
 }

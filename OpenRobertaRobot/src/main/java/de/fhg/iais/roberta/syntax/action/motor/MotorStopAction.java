@@ -14,7 +14,8 @@ import de.fhg.iais.roberta.syntax.BlocklyConstants;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.action.MoveAction;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.actor.IMotorVisitor;
@@ -79,31 +80,31 @@ public class MotorStopAction<V> extends MoveAction<V> {
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
 
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
-        String portName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
+        List<Field> fields = Jaxb2Ast.extractFields(block, (short) 2);
+        String portName = Jaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
         if ( fields.size() > 1 ) {
-            String modeName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
+            String modeName = Jaxb2Ast.extractField(fields, BlocklyConstants.MODE);
             return MotorStopAction
                 .make(
                     factory.sanitizePort(portName),
                     factory.getMotorStopMode(modeName),
-                    AbstractJaxb2Ast.extractBlockProperties(block),
-                    AbstractJaxb2Ast.extractComment(block));
+                    Jaxb2Ast.extractBlockProperties(block),
+                    Jaxb2Ast.extractComment(block));
 
         }
         return MotorStopAction
-            .make(factory.sanitizePort(portName), null, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+            .make(factory.sanitizePort(portName), null, Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
 
     }
 
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
 
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.MOTORPORT, getUserDefinedPort().toString());
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.MOTORPORT, getUserDefinedPort().toString());
         if ( getMode() != null ) {
-            Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.MODE, getMode().toString());
+            Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.MODE, getMode().toString());
         }
 
         return jaxbDestination;

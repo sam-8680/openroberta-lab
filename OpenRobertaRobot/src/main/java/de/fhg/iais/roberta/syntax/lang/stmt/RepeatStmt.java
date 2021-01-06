@@ -23,8 +23,9 @@ import de.fhg.iais.roberta.syntax.lang.expr.Unary.Op;
 import de.fhg.iais.roberta.syntax.lang.expr.Var;
 import de.fhg.iais.roberta.syntax.lang.expr.VarDeclaration;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
 import de.fhg.iais.roberta.transformer.ExprParam;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.typecheck.BlocklyType;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.util.dbc.DbcException;
@@ -121,7 +122,7 @@ public class RepeatStmt<V> extends Stmt<V> {
         switch ( block.getType() ) {
             case BlocklyConstants.CONTROLS_REPEAT_EXT:
             case BlocklyConstants.CONTROLS_REPEAT:
-                values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+                values = Jaxb2Ast.extractValues(block, (short) 1);
                 exprList = ExprList.make();
 
                 //TODO: replace var, from, to by expressions
@@ -130,20 +131,20 @@ public class RepeatStmt<V> extends Stmt<V> {
                         .make(
                             BlocklyType.NUMBER_INT,
                             "k" + helper.getVariableCounter(),
-                            AbstractJaxb2Ast.extractBlockProperties(block),
-                            AbstractJaxb2Ast.extractComment(block));
-                from = NumConst.make("0", AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+                            Jaxb2Ast.extractBlockProperties(block),
+                            Jaxb2Ast.extractComment(block));
+                from = NumConst.make("0", Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
                 to = helper.extractValue(values, new ExprParam(BlocklyConstants.TIMES, BlocklyType.NUMBER_INT));
                 if ( block.getType().equals(BlocklyConstants.CONTROLS_REPEAT) ) {
-                    fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
+                    fields = Jaxb2Ast.extractFields(block, (short) 1);
                     to =
                         NumConst
                             .make(
-                                AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TIMES),
-                                AbstractJaxb2Ast.extractBlockProperties(block),
-                                AbstractJaxb2Ast.extractComment(block));
+                                Jaxb2Ast.extractField(fields, BlocklyConstants.TIMES),
+                                Jaxb2Ast.extractBlockProperties(block),
+                                Jaxb2Ast.extractComment(block));
                 }
-                by = NumConst.make("1", AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+                by = NumConst.make("1", Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
 
                 exprList.addExpr(helper.convertPhraseToExpr(var));
                 exprList.addExpr(helper.convertPhraseToExpr(from));
@@ -156,7 +157,7 @@ public class RepeatStmt<V> extends Stmt<V> {
 
             case BlocklyConstants.CONTROLS_FOR:
             case BlocklyConstants.ROB_CONTROLS_FOR:
-                values = AbstractJaxb2Ast.extractValues(block, (short) 3);
+                values = Jaxb2Ast.extractValues(block, (short) 3);
                 exprList = ExprList.make();
 
                 var = helper.extractVar(block);
@@ -172,21 +173,21 @@ public class RepeatStmt<V> extends Stmt<V> {
                 return helper.extractRepeatStatement(block, exprList, BlocklyConstants.FOR);
             case BlocklyConstants.ROB_CONTROLS_FOR_EACH:
             case BlocklyConstants.CONTROLS_FOR_EACH:
-                fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
+                fields = Jaxb2Ast.extractFields(block, (short) 2);
                 String type = fields.get(0).getValue();
                 EmptyExpr<V> empty = EmptyExpr.make(BlocklyType.get(type));
                 var =
                     VarDeclaration
                         .make(
-                            BlocklyType.get(AbstractJaxb2Ast.extractField(fields, BlocklyConstants.TYPE)),
-                            AbstractJaxb2Ast.extractField(fields, BlocklyConstants.VAR),
+                            BlocklyType.get(Jaxb2Ast.extractField(fields, BlocklyConstants.TYPE)),
+                            Jaxb2Ast.extractField(fields, BlocklyConstants.VAR),
                             empty,
                             false,
                             false,
                             BlocklyBlockProperties.make("1", "1"),
                             null);
 
-                values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+                values = Jaxb2Ast.extractValues(block, (short) 1);
                 exprr = helper.extractValue(values, new ExprParam(BlocklyConstants.LIST, BlocklyType.ARRAY));
 
                 Binary<V> exprBinary =
@@ -196,31 +197,31 @@ public class RepeatStmt<V> extends Stmt<V> {
                             helper.convertPhraseToExpr(var),
                             helper.convertPhraseToExpr(exprr),
                             "",
-                            AbstractJaxb2Ast.extractBlockProperties(block),
-                            AbstractJaxb2Ast.extractComment(block));
+                            Jaxb2Ast.extractBlockProperties(block),
+                            Jaxb2Ast.extractComment(block));
                 return helper.extractRepeatStatement(block, exprBinary, BlocklyConstants.FOR_EACH);
 
             case BlocklyConstants.CONTROLS_WHILE_UNTIL:
-                fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
-                String modee = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MODE);
-                values = AbstractJaxb2Ast.extractValues(block, (short) 1);
+                fields = Jaxb2Ast.extractFields(block, (short) 1);
+                String modee = Jaxb2Ast.extractField(fields, BlocklyConstants.MODE);
+                values = Jaxb2Ast.extractValues(block, (short) 1);
                 if ( RepeatStmt.Mode.UNTIL == RepeatStmt.Mode.get(modee) ) {
                     exprr =
                         Unary
                             .make(
                                 Op.NOT,
                                 helper.convertPhraseToExpr(helper.extractValue(values, new ExprParam(BlocklyConstants.BOOL, BlocklyType.BOOLEAN))),
-                                AbstractJaxb2Ast.extractBlockProperties(block),
-                                AbstractJaxb2Ast.extractComment(block));
+                                Jaxb2Ast.extractBlockProperties(block),
+                                Jaxb2Ast.extractComment(block));
                 } else {
                     exprr = helper.extractValue(values, new ExprParam(BlocklyConstants.BOOL, BlocklyType.BOOLEAN));
                 }
                 return helper.extractRepeatStatement(block, exprr, modee);
             case BlocklyConstants.ROB_CONTROLS_LOOP_FOREVER_ARDU:
-                exprr = BoolConst.make(true, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+                exprr = BoolConst.make(true, Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
                 return helper.extractRepeatStatement(block, exprr, RepeatStmt.Mode.FOREVER_ARDU.toString());
             default:
-                exprr = BoolConst.make(true, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+                exprr = BoolConst.make(true, Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
                 return helper.extractRepeatStatement(block, exprr, RepeatStmt.Mode.FOREVER.toString());
         }
     }
@@ -228,34 +229,34 @@ public class RepeatStmt<V> extends Stmt<V> {
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
 
         switch ( getMode() ) {
             case TIMES:
                 if ( getProperty().getBlockType().equals(BlocklyConstants.CONTROLS_REPEAT) ) {
-                    Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.TIMES, ((NumConst<?>) (((ExprList<?>) getExpr()).get().get(2))).getValue());
+                    Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.TIMES, ((NumConst<?>) (((ExprList<?>) getExpr()).get().get(2))).getValue());
                 } else {
-                    Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.TIMES, (((ExprList<?>) getExpr()).get().get(2)));
+                    Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.TIMES, (((ExprList<?>) getExpr()).get().get(2)));
                 }
                 break;
 
             case WAIT:
             case UNTIL:
-                Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.MODE, getMode().name());
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.BOOL, ((Unary<?>) getExpr()).getExpr());
+                Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.MODE, getMode().name());
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.BOOL, ((Unary<?>) getExpr()).getExpr());
                 break;
 
             case WHILE:
-                Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.MODE, getMode().name());
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.BOOL, getExpr());
+                Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.MODE, getMode().name());
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.BOOL, getExpr());
                 break;
 
             case FOR:
                 ExprList<?> exprList = (ExprList<?>) getExpr();
-                Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.VAR, ((Var<?>) exprList.get().get(0)).getValue());
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.FROM, (exprList.get().get(1)));
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.TO, (exprList.get().get(2)));
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.BY, (exprList.get().get(3)));
+                Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.VAR, ((Var<?>) exprList.get().get(0)).getValue());
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.FROM, (exprList.get().get(1)));
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.TO, (exprList.get().get(2)));
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.BY, (exprList.get().get(3)));
                 break;
 
             case FOR_EACH:
@@ -263,9 +264,9 @@ public class RepeatStmt<V> extends Stmt<V> {
                 Mutation mutation = new Mutation();
                 mutation.setListType(((VarDeclaration<?>) exprBinary.getLeft()).getTypeVar().getBlocklyName());
                 jaxbDestination.setMutation(mutation);
-                Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.TYPE, ((VarDeclaration<?>) exprBinary.getLeft()).getTypeVar().getBlocklyName());
-                Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.VAR, ((VarDeclaration<?>) exprBinary.getLeft()).getName());
-                Ast2JaxbHelper.addValue(jaxbDestination, BlocklyConstants.LIST, exprBinary.getRight());
+                Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.TYPE, ((VarDeclaration<?>) exprBinary.getLeft()).getTypeVar().getBlocklyName());
+                Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.VAR, ((VarDeclaration<?>) exprBinary.getLeft()).getName());
+                Ast2Jaxb.addValue(jaxbDestination, BlocklyConstants.LIST, exprBinary.getRight());
                 break;
             case FOREVER:
             case FOREVER_ARDU:
@@ -274,7 +275,7 @@ public class RepeatStmt<V> extends Stmt<V> {
             default:
                 break;
         }
-        Ast2JaxbHelper.addStatement(jaxbDestination, BlocklyConstants.DO, getList());
+        Ast2Jaxb.addStatement(jaxbDestination, BlocklyConstants.DO, getList());
 
         return jaxbDestination;
     }

@@ -53,10 +53,6 @@ public class HelperMethodGenerator {
         loadFromJson(jsonHelperMethods, baseProgLanguage);
     }
 
-    @SuppressWarnings({
-        "rawtypes",
-        "unchecked"
-    })
     private void loadFromJson(JSONObject jsonHelperMethods, Language baseProgLanguage) {
         for ( String methodName : jsonHelperMethods.keySet() ) {
             JSONObject jsonHelperMethod = jsonHelperMethods.getJSONObject(methodName);

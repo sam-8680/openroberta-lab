@@ -26,7 +26,8 @@ import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.lang.expr.eval.EvalExprErrorListener;
 import de.fhg.iais.roberta.syntax.lang.expr.eval.ExprlyVisitor;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.typecheck.BlocklyType;
 import de.fhg.iais.roberta.typecheck.NepoInfo;
 import de.fhg.iais.roberta.visitor.IVisitor;
@@ -148,9 +149,9 @@ public class EvalExpr<V> extends Expr<V> {
         Block jaxbDestination = new Block();
         Mutation mutation = new Mutation();
         mutation.setType(this.getType());
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.TYPE, this.getType());
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.EXPRESSION, this.getExprStr());
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.TYPE, this.getType());
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.EXPRESSION, this.getExprStr());
         jaxbDestination.setMutation(mutation);
         return jaxbDestination;
     }
@@ -165,10 +166,10 @@ public class EvalExpr<V> extends Expr<V> {
      */
     @SuppressWarnings("unchecked")
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) throws Exception {
-        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
-        String expr = AbstractJaxb2Ast.extractField(fields, "EXPRESSION");
-        String type = AbstractJaxb2Ast.extractField(fields, "TYPE");
-        return (Phrase<V>) EvalExpr.make(expr, type, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+        List<Field> fields = Jaxb2Ast.extractFields(block, (short) 2);
+        String expr = Jaxb2Ast.extractField(fields, "EXPRESSION");
+        String type = Jaxb2Ast.extractField(fields, "TYPE");
+        return (Phrase<V>) EvalExpr.make(expr, type, Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
 
     }
 

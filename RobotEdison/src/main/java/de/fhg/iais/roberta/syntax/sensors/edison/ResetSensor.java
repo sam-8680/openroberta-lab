@@ -4,7 +4,6 @@ import java.util.List;
 
 import de.fhg.iais.roberta.blockly.generated.Block;
 import de.fhg.iais.roberta.blockly.generated.Field;
-import de.fhg.iais.roberta.factory.BlocklyDropdownFactory;
 import de.fhg.iais.roberta.syntax.BlockType;
 import de.fhg.iais.roberta.syntax.BlockTypeContainer;
 import de.fhg.iais.roberta.syntax.BlocklyBlockProperties;
@@ -13,7 +12,8 @@ import de.fhg.iais.roberta.syntax.BlocklyConstants;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.sensor.Sensor;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IEdisonVisitor;
@@ -71,10 +71,9 @@ public class ResetSensor<V> extends Sensor<V> {
      * @return corresponding AST object
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
-        BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 1);
-        String sensorName = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.SENSOR);
-        return ResetSensor.make(sensorName, AbstractJaxb2Ast.extractBlockProperties(block), AbstractJaxb2Ast.extractComment(block));
+        List<Field> fields = Jaxb2Ast.extractFields(block, (short) 1);
+        String sensorName = Jaxb2Ast.extractField(fields, BlocklyConstants.SENSOR);
+        return ResetSensor.make(sensorName, Jaxb2Ast.extractBlockProperties(block), Jaxb2Ast.extractComment(block));
     }
 
     /**
@@ -83,8 +82,8 @@ public class ResetSensor<V> extends Sensor<V> {
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.SENSOR, this.getSensor());
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.SENSOR, this.getSensor());
 
         return jaxbDestination;
     }

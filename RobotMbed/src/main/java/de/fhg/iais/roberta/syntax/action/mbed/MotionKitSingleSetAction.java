@@ -13,7 +13,8 @@ import de.fhg.iais.roberta.syntax.BlocklyConstants;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.action.Action;
 import de.fhg.iais.roberta.transformer.AbstractJaxb2Ast;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
+import de.fhg.iais.roberta.transformer.Jaxb2Ast;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.visitor.IVisitor;
 import de.fhg.iais.roberta.visitor.hardware.IMbedVisitor;
@@ -75,23 +76,23 @@ public final class MotionKitSingleSetAction<V> extends Action<V> {
      */
     public static <V> Phrase<V> jaxbToAst(Block block, AbstractJaxb2Ast<V> helper) {
         BlocklyDropdownFactory factory = helper.getDropdownFactory();
-        List<Field> fields = AbstractJaxb2Ast.extractFields(block, (short) 2);
-        String port = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
-        String direction = AbstractJaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
+        List<Field> fields = Jaxb2Ast.extractFields(block, (short) 2);
+        String port = Jaxb2Ast.extractField(fields, BlocklyConstants.MOTORPORT);
+        String direction = Jaxb2Ast.extractField(fields, BlocklyConstants.DIRECTION);
         return MotionKitSingleSetAction
             .make(
                 factory.sanitizePort(port),
                 factory.getMode(direction),
-                AbstractJaxb2Ast.extractBlockProperties(block),
-                AbstractJaxb2Ast.extractComment(block));
+                Jaxb2Ast.extractBlockProperties(block),
+                Jaxb2Ast.extractComment(block));
     }
 
     @Override
     public Block astToBlock() {
         Block jaxbDestination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, jaxbDestination);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.MOTORPORT, this.port);
-        Ast2JaxbHelper.addField(jaxbDestination, BlocklyConstants.DIRECTION, this.direction);
+        Ast2Jaxb.setBasicProperties(this, jaxbDestination);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.MOTORPORT, this.port);
+        Ast2Jaxb.addField(jaxbDestination, BlocklyConstants.DIRECTION, this.direction);
         return jaxbDestination;
     }
 }

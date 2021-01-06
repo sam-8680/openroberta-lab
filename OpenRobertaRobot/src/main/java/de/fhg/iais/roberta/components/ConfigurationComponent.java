@@ -12,7 +12,7 @@ import de.fhg.iais.roberta.syntax.BlocklyBlockProperties;
 import de.fhg.iais.roberta.syntax.BlocklyComment;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.SC;
-import de.fhg.iais.roberta.transformer.Ast2JaxbHelper;
+import de.fhg.iais.roberta.transformer.Ast2Jaxb;
 import de.fhg.iais.roberta.transformer.Jaxb2ConfigurationAst;
 import de.fhg.iais.roberta.util.dbc.Assert;
 import de.fhg.iais.roberta.util.dbc.DbcException;
@@ -184,9 +184,9 @@ public class ConfigurationComponent extends Phrase<Void> {
     @Override
     public Block astToBlock() {
         Block destination = new Block();
-        Ast2JaxbHelper.setBasicProperties(this, destination);
-        Ast2JaxbHelper.addField(destination, "NAME", this.userDefinedPortName);
-        this.componentProperties.forEach((key, value) -> Ast2JaxbHelper.addField(destination, key, value));
+        Ast2Jaxb.setBasicProperties(this, destination);
+        Ast2Jaxb.addField(destination, "NAME", this.userDefinedPortName);
+        this.componentProperties.forEach((key, value) -> Ast2Jaxb.addField(destination, key, value));
         return destination;
     }
 
