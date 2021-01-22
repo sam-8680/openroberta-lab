@@ -1,0 +1,70 @@
+<export xmlns="http://de.fhg.iais.roberta.blockly">
+    <program>
+        <block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="raspberrypi" xmlversion="3.1" description="" tags="">
+            <instance x="384" y="50">
+                <block type="robControls_start" id="nvhmaCNCw`l4Vjbab#Yj" intask="true" deletable="false">
+                    <mutation declare="false"/>
+                    <field name="DEBUG">FALSE</field>
+                </block>
+            </instance>
+        </block_set>
+    </program>
+    <config>
+        <block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="raspberrypi" xmlversion="3.1" description="" tags="">
+            <instance x="36" y="36">
+                <block type="robConf_led" id="a5Ib)H@aXk*v}Y?-9lPm" intask="true">
+                    <field name="NAME">L</field>
+                    <field name="INPUT">17</field>
+                </block>
+            </instance>
+            <instance x="37" y="140">
+                <block type="robConf_rgbled" id="8wa2PiYyoyYGp?)l=E~^" intask="true">
+                    <field name="NAME">R</field>
+                    <field name="RED">9</field>
+                    <field name="GREEN">10</field>
+                    <field name="BLUE">11</field>
+                </block>
+            </instance>
+            <instance x="22" y="308">
+                <block type="robConf_buzzer" id="H3#8qXsfm_tSr_-t%Tgh" intask="true">
+                    <field name="NAME">B</field>
+                    <field name="INPUT">5</field>
+                </block>
+            </instance>
+            <instance x="26" y="418">
+                <block type="robConf_digitalin" id="yhBL%Xm_!:*N-W0EAu(%" intask="true">
+                    <field name="NAME">A</field>
+                    <field name="MODE">DIGITAL</field>
+                    <field name="INPUT">1</field>
+                </block>
+            </instance>
+            <instance x="739" y="405">
+                <block type="robConf_angularservo" id="QL:uieY*^1-!NI@|Brmg" intask="true">
+                    <field name="NAME">A2</field>
+                    <field name="MIN_ANGLE">-90</field>
+                    <field name="MAX_ANGLE">90</field>
+                    <field name="MIN_PULSE_WIDTH">0.001</field>
+                    <field name="MAX_PULSE_WIDTH">0.002</field>
+                    <field name="FRAME_WIDTH">0.02</field>
+                    <field name="PIN1">26</field>
+                </block>
+            </instance>
+            <instance x="20" y="534">
+                <block type="robConf_motor" id=":VJsMIsXPjL/@vnkXMqI" intask="true">
+                    <field name="NAME">M</field>
+                    <field name="PIN_FORWARD">17</field>
+                    <field name="PIN_BACKWARD">18</field>
+                </block>
+            </instance>
+            <instance x="403" y="586">
+                <block type="robConf_servo" id="4{*V5uQJ2HzwKca,pHF#" intask="true">
+                    <field name="NAME">S</field>
+                    <field name="MIN_PULSE_WIDTH">0.001</field>
+                    <field name="MAX_PULSE_WIDTH">0.002</field>
+                    <field name="FRAME_WIDTH">0.02</field>
+                    <field name="PIN1">17</field>
+                </block>
+            </instance>
+        </block_set>
+    </config>
+</export>

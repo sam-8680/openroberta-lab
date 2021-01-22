@@ -1,9 +1,5 @@
 include: "classpath:/robotCommon.yml"
 block:
-  COLOR_HEX_STRING:
-      category: EXPR
-      implementor: de.fhg.iais.roberta.syntax.lang.expr.ColorHexString
-      type: [naoColour_picker]
   LED_SET_ACTION:
       category: ACTOR
       implementor: de.fhg.iais.roberta.syntax.action.raspberrypi.LedSetAction
@@ -20,3 +16,6 @@ block:
       category: ACTOR
       implementor: de.fhg.iais.roberta.syntax.action.raspberrypi.LedGetAction
       type: [robActions_led_get]
+configuration:
+  PWM_INPUT: [robConf_pwmin]
+  SMOOTHED_OUTPUT: [robConf_smoothedout]

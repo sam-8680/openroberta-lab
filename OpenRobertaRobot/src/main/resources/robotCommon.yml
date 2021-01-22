@@ -846,6 +846,8 @@ configuration:
   RFID: [robConf_rfid, robBrick_rfide]
   RGBLED: [robConf_rgbled]
   SERVOMOTOR: [robConf_servo]
+  ANGULARSERVOMOTOR: [robConf_angularservo]
+  PHASEMOTOR: [robConf_phasemotor]
   SOUND: [robBrick_sound, robConf_sound]
   STEPMOTOR: [robConf_stepmotor]
   TEMPERATURE: [robConf_temperature, robBrick_temperature]

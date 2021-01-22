@@ -6,6 +6,7 @@ import com.google.common.collect.ClassToInstanceMap;
 
 import de.fhg.iais.roberta.bean.IProjectBean;
 import de.fhg.iais.roberta.components.ConfigurationAst;
+import de.fhg.iais.roberta.components.ConfigurationComponent;
 import de.fhg.iais.roberta.syntax.Phrase;
 import de.fhg.iais.roberta.syntax.SC;
 import de.fhg.iais.roberta.syntax.action.light.LightAction;
@@ -118,67 +119,6 @@ public final class RaspberryPiPythonVisitor extends AbstractPythonVisitor implem
         return null;
     }
 
-    @Override
-    protected void generateProgramPrefix(boolean withWrapping) {
-        if ( !withWrapping ) {
-            return;
-        }
-        this.usedGlobalVarInFunctions.clear();
-        this.sb.append("#!/usr/bin/python");
-        nlIndent();
-        nlIndent();
-        this.sb.append("from __future__ import absolute_import");
-        nlIndent();
-        this.sb.append("from roberta import Hal");
-        nlIndent();
-        this.sb.append("import math");
-        nlIndent();
-        nlIndent();
-        this.sb.append("class BreakOutOfALoop(Exception): pass");
-        nlIndent();
-        this.sb.append("class ContinueLoop(Exception): pass");
-        nlIndent();
-        nlIndent();
-        this.sb.append("hal = Hal()");
-        nlIndent();
-    }
-
-    @Override
-    protected void generateProgramSuffix(boolean withWrapping) {
-        if ( !withWrapping ) {
-            return;
-        }
-        decrIndentation(); // everything is still indented from main program
-        nlIndent();
-        nlIndent();
-        this.sb.append("def main():");
-        incrIndentation();
-        nlIndent();
-        this.sb.append("try:");
-        incrIndentation();
-        nlIndent();
-        this.sb.append("run()");
-        decrIndentation();
-        nlIndent();
-        this.sb.append("except Exception as e:");
-        incrIndentation();
-        nlIndent();
-        this.sb.append("print('Fehler im Vorwerk')");
-        nlIndent();
-        this.sb.append("print(e.__class__.__name__)");
-        nlIndent();
-        // FIXME: we can only print about 30 chars
-        this.sb.append("print(e)");
-        decrIndentation();
-        decrIndentation();
-        nlIndent();
-        nlIndent();
-        this.sb.append("if __name__ == \"__main__\":");
-        incrIndentation();
-        nlIndent();
-        this.sb.append("main()");
-    }
-
     private String quote(String value) {
         return "'" + value.toLowerCase() + "'";
     }
@@ -251,5 +191,184 @@ public final class RaspberryPiPythonVisitor extends AbstractPythonVisitor implem
     @Override
     public Void visitTextCharCastNumberFunct(TextCharCastNumberFunct<Void> textCharCastNumberFunct) {
         throw new DbcException("Not supported!");
+    }
+
+    private void generateConfigurationVariables() {
+        for ( ConfigurationComponent cc : this.brickConfiguration.getConfigurationComponentsValues() ) {
+            String blockName = cc.getUserDefinedPortName();
+            switch ( cc.getComponentType() ) {
+                case SC.ULTRASONIC:
+                    this.sb.append("light_sensor_" + blockName + " = gpz.DistanceSensor(")
+                            .append(cc.getProperty("TRIG")).append(", ").append(cc.getProperty("ECHO"))
+                            .append(", threshold=")
+                            .append(cc.getProperty("THRESHOLD")).append(");");
+                    nlIndent();
+                    break;
+
+                case SC.LIGHT:
+                    this.sb.append("light_sensor_" + blockName + " = gpz.LightSensor(")
+                            .append(cc.getProperty("OUTPUT")).append(", threshold=")
+                            .append(cc.getProperty("THRESHOLD")).append(");");
+                    nlIndent();
+                    break;
+                case SC.MOTION:
+                    this.sb.append("motion_sensor_" + blockName + " = gpz.MotionSensor(")
+                            .append(cc.getProperty("OUTPUT")).append(", threshold=")
+                            .append(cc.getProperty("THRESHOLD")).append(");");
+                    nlIndent();
+                    break;
+
+                case SC.SMOOTHED_OUTPUT:
+                    this.sb.append("smoothed_output_").append(blockName).append(" = gpz.SmoothedInputDevice(")
+                            .append(cc.getProperty("OUTPUT")).append(", threshold=")
+                            .append(cc.getProperty("THRESHOLD")).append(");");
+                    nlIndent();
+                    break;
+
+
+                case SC.KEY:
+                    this.sb.append("button_" + blockName + " = gpz.Button(").append(cc.getProperty("PIN1")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.LED:
+                    this.sb.append("led_" + blockName + " = gpz.PWMLED(").append(cc.getProperty("INPUT")).append(")");
+                    nlIndent();
+                    break;
+                case SC.RGBLED:
+                    this.sb
+                        .append("rgb_led_" + blockName + " = gpz.RGBLED(")
+                        .append(cc.getProperty(SC.RED))
+                        .append(", ")
+                        .append(cc.getProperty(SC.GREEN))
+                        .append(", ")
+                        .append(cc.getProperty(SC.BLUE))
+                        .append(")");
+                    nlIndent();
+                    break;
+                case SC.BUZZER:
+                    this.sb.append("buzzer_" + blockName + " = gpz.Buzzer(").append(cc.getProperty("INPUT")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.DIGITAL_PIN:
+                    this.sb.append("int digital_input_").append(blockName).append(" = DigitalInputDevice(").append(cc.getProperty("OUTPUT")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.DIGITAL_INPUT:
+                    this.sb.append("output_").append(blockName).append(" = gpz.DigitalOutputDevice(").append(cc.getProperty("INPUT")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.PWM_INPUT:
+                    this.sb.append("output_").append(blockName).append(" = gpz.PWMOutputDevice(").append(cc.getProperty("INPUT")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.MOTOR:
+                    this.sb.append("motor_").append(blockName).append(" = gpz.Motor(")
+                            .append(cc.getProperty("PIN_FORWARD")).append(", ")
+                            .append(cc.getProperty("PIN_BACKWARD")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.SERVOMOTOR:
+                    this.sb.append("motor_servo_").append(blockName).append(" = gpz.Servo(")
+                            .append(cc.getProperty("PIN1")).append(", min_pulse_width=")
+                            .append(cc.getProperty("MIN_PULSE_WIDTH")).append(", max_pulse_width=")
+                            .append(cc.getProperty("MAX_PULSE_WIDTH")).append(", frame_width=")
+                            .append(cc.getProperty("FRAME_WIDTH")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.ANGULARSERVOMOTOR:
+                    this.sb.append("motor_servo_angular_").append(blockName).append(" = gpz.AngularServo(")
+                            .append(cc.getProperty("PIN1")).append(", min_angle=")
+                            .append(cc.getProperty("MIN_ANGLE")).append(", max_angle=")
+                            .append(cc.getProperty("MAX_ANGLE")).append(", min_pulse_width=")
+                            .append(cc.getProperty("MIN_PULSE_WIDTH")).append(", max_pulse_width=")
+                            .append(cc.getProperty("MAX_PULSE_WIDTH")).append(", frame_width=")
+                            .append(cc.getProperty("FRAME_WIDTH")).append(")");
+                    nlIndent();
+                    break;
+
+                case SC.PHASEMOTOR:
+                    this.sb.append("motor_phase_").append(blockName).append(" = gpz.PhaseEnableMotor(")
+                            .append(cc.getProperty("PHASE")).append(", ")
+                            .append(cc.getProperty("ENABLE")).append(")");
+                    nlIndent();
+                    break;
+
+
+                default:
+                    throw new DbcException("Configuration block is not supported: " + cc.getComponentType());
+            }
+        }
+    }
+
+    @Override
+    protected void generateProgramPrefix(boolean withWrapping) {
+        if ( !withWrapping ) {
+            return;
+        }
+        this.usedGlobalVarInFunctions.clear();
+        this.sb.append("#!/usr/bin/python");
+        nlIndent();
+        nlIndent();
+        this.sb.append("from __future__ import absolute_import");
+        nlIndent();
+        this.sb.append("from roberta import Hal");
+        nlIndent();
+        this.sb.append("import gpiozero as gpz");
+        nlIndent();
+        this.sb.append("import math");
+        nlIndent();
+        nlIndent();
+        this.sb.append("class BreakOutOfALoop(Exception): pass");
+        nlIndent();
+        this.sb.append("class ContinueLoop(Exception): pass");
+        nlIndent();
+        nlIndent();
+        this.sb.append("hal = Hal()");
+        nlIndent();
+        generateConfigurationVariables();
+        nlIndent();
+    }
+
+    @Override
+    protected void generateProgramSuffix(boolean withWrapping) {
+        if ( !withWrapping ) {
+            return;
+        }
+        decrIndentation(); // everything is still indented from main program
+        nlIndent();
+        nlIndent();
+        this.sb.append("def main():");
+        incrIndentation();
+        nlIndent();
+        this.sb.append("try:");
+        incrIndentation();
+        nlIndent();
+        this.sb.append("run()");
+        decrIndentation();
+        nlIndent();
+        this.sb.append("except Exception as e:");
+        incrIndentation();
+        nlIndent();
+        this.sb.append("print('Fehler im RaspberryPi')");
+        nlIndent();
+        this.sb.append("print(e.__class__.__name__)");
+        nlIndent();
+        // FIXME: we can only print about 30 chars
+        this.sb.append("print(e)");
+        decrIndentation();
+        decrIndentation();
+        nlIndent();
+        nlIndent();
+        this.sb.append("if __name__ == \"__main__\":");
+        incrIndentation();
+        nlIndent();
+        this.sb.append("main()");
     }
 }

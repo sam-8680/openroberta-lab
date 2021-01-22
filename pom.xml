@@ -118,7 +118,7 @@
             </dependency>
             <dependency>
                 <groupId>de.fhg.iais.openroberta</groupId>
-                <artifactId>RaspberryPi</artifactId>
+                <artifactId>RobotRaspberryPi</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -128,7 +128,7 @@
             </dependency>
             <dependency>
                 <groupId>de.fhg.iais.openroberta</groupId>
-                <artifactId>RobotWedo</artifactId>
+                <artifactId>RobotWeDo</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

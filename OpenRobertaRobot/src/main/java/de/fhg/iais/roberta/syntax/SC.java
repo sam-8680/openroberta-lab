@@ -127,4 +127,9 @@ public interface SC {
     String LED_BUILTIN = "LED_BUILTIN";
     String GREEN = "GREEN";
     String BLUE = "BLUE";
+    String MOTOR = "MOTOR";
+    String ANGULARSERVOMOTOR = "ANGULARSERVOMOTOR";
+    String PWM_INPUT = "PWM_INPUT";
+    String PHASEMOTOR = "PHASEMOTOR";
+    String SMOOTHED_OUTPUT = "SMOOTHED_OUTPUT";
 }
